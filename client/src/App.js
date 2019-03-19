@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Signup from './pages/Signup';
 import LandingPage from './pages/LandingPage';
+import DealForm from './pages/DealForm';
 
 library.add(faShieldAlt, faPlusCircle, faUser)
 
@@ -49,7 +50,7 @@ class App extends Component {
       <Router>
         <div>
           <Switch>
-            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/" component={DealForm} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/logout" component={Logout} />

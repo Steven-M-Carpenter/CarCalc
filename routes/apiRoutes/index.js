@@ -8,7 +8,7 @@ const loginController = require("../../controllers/loginController");
 //************************************************************************************/
 // Routes for the authentication engine
 router
-  .route("/api/signup")
+  .route("/signup")
   .post(loginController.signUp);
 
 router
