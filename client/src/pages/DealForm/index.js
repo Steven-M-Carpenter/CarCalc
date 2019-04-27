@@ -109,10 +109,14 @@ class DealForm extends Component {
       let totalInterest = (totalPrice - AmountFinanced);
       console.log("totalInterest = " + totalInterest);
       this.setState({
-        financeAmount: AmountFinanced.toFixed(2),
-        financePrice: totalPrice.toFixed(2),
-        financeInterest: totalInterest.toFixed(2),
-        financePayment: monthlyPayment.toFixed(2),
+        financeAmount: numeral(AmountFinanced).format("$0,0.00"),
+        // financeAmount: AmountFinanced.toFixed(2),
+        financePrice: numeral(totalPrice).format("$0,0.00"),
+        // financePrice: totalPrice.toFixed(2),
+        financeInterest: numeral(totalInterest).format("$0,0.00"),
+        // financeInterest: totalInterest.toFixed(2),
+        financePayment: numeral(monthlyPayment).format("$0,0.00"),
+        // financePayment: monthlyPayment.toFixed(2),
         financeResult: true
       });
     }
