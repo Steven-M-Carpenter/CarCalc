@@ -7,9 +7,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faShieldAlt, faPlusCircle, faUser, } from '@fortawesome/free-solid-svg-icons';
 
 import NoMatch from "./pages/NoMatch";
-import Login from './pages/Login';
 import Logout from './pages/Logout';
-import Signup from './pages/Signup';
 import LandingPage from './pages/LandingPage';
 import DealForm from './pages/DealForm';
 
@@ -17,8 +15,8 @@ library.add(faShieldAlt, faPlusCircle, faUser)
 
 class App extends Component {
   state = {
-    isLoggedIn: false,
-    loginEmail: ""
+    // isLoggedIn: false,
+    // loginEmail: ""
   }
 
   handleLoginStatus = (passedStatus, passedEmail) => {
@@ -31,6 +29,10 @@ class App extends Component {
       this.setState({ loginEmail: passedEmail });
     };
     console.log("APP: state = " + JSON.stringify(this.state));
+  };
+
+  handleDisplayReq = () => {
+    console.log("isLoggedIn = " + this.state.isLoggedIn);
   };
 
 
@@ -50,18 +52,19 @@ class App extends Component {
       <Router>
         <div>
           <Switch>
-            <Route exact path="/" component={DealForm} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
+            {/* <Route exact path="/" component={DealForm} /> */}
+            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/login" component={LandingPage} />
+            {/* <Route exact path="/signup" component={Signup} /> */}
             <Route exact path="/logout" component={Logout} />
-            <Route exact path="/main" render={() => (
+            <Route exact path="/auth" render={() => (
               this.state.isLoggedIn ? (
                 <Redirect to="/auth/deal" />
               ) : (
-                  <Login handleLoginStatus={this.handleLoginStatus} />
+                  <LandingPage handleLoginStatus={this.handleLoginStatus} />
               ))} />
 
-            {/* <Route exact path="/auth/deal" component={DealForm} /> */}
+            <Route exact path="/auth/deal" component={DealForm} />
             {/* <Route exact path="/auth/save" component={SaveForm} /> */}
             <Route component={NoMatch} />
           </Switch>

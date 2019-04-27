@@ -30,22 +30,26 @@ class Login extends Component {
   };
 
 
+  // validateUser = query => {
   validateUser = query => {
+    console.log(query);
+    // console.log("email/pw = " + this.state.email + "/" + this.statpw);
     API.getUser(query)
       .then(res => {
         console.log("LOGIN: res = " + JSON.stringify(res));
         if (res.data.success) {
           console.log("in success handle");
-          this.setState({ isLoggedIn: true, });
+          this.setState({ isLoggedIn: true });
           this.setState({ loginMsg: res.data.message });
-          window.sessionStorage.setItem("SMC_authkey", res.data.token);
-          window.location.assign('/auth/taskboard');
+          console.log("LOGIN: state = " + JSON.stringify(this.state));
+          window.sessionStorage.setItem("CFC_authkey", res.data.token);
+          // window.location.assign('/auth');
         } else {
           console.log("in failure handle");
           this.setState({ isLoggedIn: false });
           this.setState({ loginMsg: res.data.message });
-          window.sessionStorage.setItem("SMC_authkey", "");
-          window.location.assign('/login');
+          window.sessionStorage.setItem("CFC_authkey", "");
+          // window.location.assign('/login');
         }
         console.log("LOGIN: state = " + JSON.stringify(this.state));
       })
@@ -82,7 +86,7 @@ class Login extends Component {
                   <Input type="password" name="password" id="login_Password" placeholder="Enter your password" onChange={this.handleInputChange} />
                 </FormGroup>
                 <div className="text-center">
-                  <Button className="access_Button mt-3 mb-4" onClick={this.handleFormSubmit} >Submit</Button>
+                  <Button className="access_Button mt-3 mb-4" onClick={this.validateUser} >Submit</Button>
                 </div>
               </Form>
             </Col>

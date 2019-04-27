@@ -27,3 +27,7 @@
   font-size: 10px;
   color: lightgrey;
 }
+
+.list-group-item {
+  border: 1px solid black;
+}

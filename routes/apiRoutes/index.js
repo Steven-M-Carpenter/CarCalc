@@ -12,15 +12,15 @@ router
   .post(loginController.signUp);
 
 router
-  .route("/api/signin")
+  .route("/signin")
   .post(loginController.signIn);
 
 router
-  .route("/api/verify")
+  .route("/verify")
   .post(loginController.verify);
 
 router
-  .route("/api/logout")
+  .route("/logout")
   .post(loginController.logout);
 
 
@@ -28,6 +28,17 @@ router
 //************************************************************************************/
 //
 
+router
+  .route("/saveDeal")
+  .post(appController.saveDeal);
+
+router
+  .route("/getMyDeals/:email")
+  .get(appController.getMyDeals);
+
+  router
+  .route("/loadDeal/:id")
+  .get(appController.loadDeal);
 
 
 //************************************************************************************/

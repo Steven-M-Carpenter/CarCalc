@@ -42,7 +42,7 @@ class Signup extends Component {
         if (res.data.success) {
           //This is where you might send an email confirmation or auto-login the user
           console.log("in success handle");
-          window.location.assign('/login');
+          window.location.assign('/');
         } else {
           console.log("in failure handle");
           window.location.assign('/signup');

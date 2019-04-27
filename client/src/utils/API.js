@@ -15,7 +15,22 @@ export default {
     console.log("Query in API = " + JSON.stringify(query));
     return axios.post("/api/verify", query);
   },
-    // Perform a load of event for use in the calendar
+  saveDeal: (query) => {
+    return axios.post("/api/saveDeal", query);
+  },
+  getMyDeals: (email) => {
+    console.log("email parm = " + email);
+    return axios.get("/api/getMyDeals/" + email);
+  },
+  loadDeal: (id) => {
+    console.log("id parm = " + id);
+    return axios.get("/api/loadDeal/" + id);
+  },
+  //
+  //
+  // Perform a load of event for use in the calendar
+  //
+  //
   loadEvents: () => {
     return axios.get("/loadEvents");
   },

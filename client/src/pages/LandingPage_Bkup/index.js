@@ -14,7 +14,7 @@ class LandingPage extends Component {
   handleLogin = event => {
     event.preventDefault();
     console.log("Handle Login");
-    window.location.assign('/login');
+    window.location.assign('/');
   };
 
   handleSignup = event => {

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import API from "../../utils/API";
 import './style.css';
-import { Button, Container, Row, Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, CustomInput } from 'reactstrap';
+import { Button, Container, Row, Col, Form, FormGroup, Label, Modal, ModalBody, ModalFooter, ModalHeader, Input, InputGroup, InputGroupAddon, CustomInput } from 'reactstrap';
+import numeral from 'numeral';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-
+// import { InputRate, InputDollars, SwitchLeft, SwitchRight } from "../../components/DealInputs";
+import { LoanTerms, Costs, Offsets } from "../../components/FormSections";
+import { ResultsDisplay } from '../../components/DealResults';
+import { TopFill, Banner } from "../../components/ScreenItems";
+import { SaveModal, LoadModal } from "../../components/Modals";
 
 //    {/* <Grid columns={2} stackable textAlign='center'> */ }
 
@@ -12,19 +16,55 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class DealForm extends Component {
   state = {
-    isLoggedIn: false,
+    deals: [],
     allValues: true,
-    amtPayment: "",
-    amtInterest: "",
     loanRate: 10,
     loanTerm: 60,
     dealPrice: 10000,
     stateTaxRate: 10,
     localTaxRate: 10,
+    additionalCharges: 0,
+    dealerProcessing: 0,
+    titleFee: 0,
+    warrantyCost: 0,
+    tagFee: 0,
+    tradeIn: 0,
+    downPayment: 0,
+    rebates: 0,
+    discounts: 0,
     incDealPrice: true,
     incStateTax: true,
+    incAddOn: true,
     incLocalTax: true,
+    incDealPro: true,
+    incTitleFee: true,
+    incWarranty: true,
+    incTagFee: true,
   };
+
+  componentDidMount = () => {
+    let authEmail = window.sessionStorage.getItem("auth-email");
+    let readToken = window.sessionStorage.getItem("CFC_authkey");
+    // console.log("Token Read = " + readToken);
+    let query = {
+      token: readToken
+    };
+    API.checkAuth(query)
+      .then(res => {
+        if (res.data.success) {
+          // console.log("in success handle");
+          this.setState({ isLoggedIn: true, email: authEmail });
+          // window.location.assign('/auth/main');
+        } else {
+          // console.log("in failure handle");
+          this.setState({ isLoggedIn: false });
+          window.location.assign('/');
+          // console.log("ERROR:  Would redirect to login.")
+        };
+      })
+      .catch(err => console.log(err));
+  };   //This is the end of ComponentDidMount
+
 
   computePayment = () => {
     // Formula = A = P * (r(1+r)n)/((1+r)n-1)
@@ -33,56 +73,71 @@ class DealForm extends Component {
     // r = the interest rate per month, which equals the annual interest rate divided by 12
     // n = the total number of months
 
-    let ammountFinanced = 0;
 
-    //******************************/
-    //Calculate the taxes to include
-    //******************************/
+    let testnum = 10000.12789;
+    let outString = numeral(testnum).format("$0,0.00");
+    console.log("outString = " + outString);
+    let AmountFinanced = 0;
+    let TotalCredits = 0;
     console.log("State = " + JSON.stringify(this.state));
-    // let calcStateTax = ((parseFloat(this.state.stateTaxRate) / 100) * parseFloat(this.state.dealPrice));
-    // console.log("ST = " + calcStateTax);
-    // let calcLocalTax = ((parseFloat(this.state.localTaxRate) / 100) * parseFloat(this.state.dealPrice));
-    // console.log("LT = " + calcLocalTax);
-    // this.setState({stateTax: calcStateTax,});
-    // this.setState({localTax: calcLocalTax,});
 
+    AmountFinanced = (this.state.incDealPrice ? (AmountFinanced + parseFloat(this.state.dealPrice)) : (AmountFinanced + 0));
+    AmountFinanced = (this.state.incStateTax ? (AmountFinanced + ((parseFloat(this.state.stateTaxRate) / 100) * parseFloat(this.state.dealPrice))) : (AmountFinanced + 0));
+    AmountFinanced = (this.state.incAddOn ? (AmountFinanced + parseFloat(this.state.additionalCharges)) : (AmountFinanced + 0));
+    AmountFinanced = (this.state.incLocalTax ? (AmountFinanced + ((parseFloat(this.state.localTaxRate) / 100) * parseFloat(this.state.dealPrice))) : (AmountFinanced + 0));
+    AmountFinanced = (this.state.incDealPro ? (AmountFinanced + parseFloat(this.state.dealerProcessing)) : (AmountFinanced + 0));
+    AmountFinanced = (this.state.incTitleFee ? (AmountFinanced + parseFloat(this.state.titleFee)) : (AmountFinanced + 0));
+    AmountFinanced = (this.state.incWarranty ? (AmountFinanced + parseFloat(this.state.warrantyCost)) : (AmountFinanced + 0));
+    AmountFinanced = (this.state.incTagFee ? (AmountFinanced + parseFloat(this.state.tagFee)) : (AmountFinanced + 0));
+    TotalCredits = parseFloat(this.state.tradeIn) + parseFloat(this.state.downPayment) + parseFloat(this.state.rebates) + parseFloat(this.state.discounts)
+    AmountFinanced = AmountFinanced - TotalCredits;
 
-    //*********************************************/
-    //Calculate the charges to include in financing
-    //*********************************************/
-    console.log("State = " + JSON.stringify(this.state));
-    console.log("StartAmtFin = " + ammountFinanced);
-    ammountFinanced = (this.state.incDealPrice ? (ammountFinanced + parseFloat(this.state.dealPrice)) : (ammountFinanced + 0));
-    console.log("Deal_AmtFin = " + ammountFinanced);
-    // ammountFinanced = (this.state.incStateTax ? (ammountFinanced + parseFloat(this.state.stateTax)) : (ammountFinanced + 0));
-    // console.log("ST_AmtFin = " + ammountFinanced + "  ST = " + this.state.stateTax + "  LT = " + this.state.localTax );
-    ammountFinanced = (this.state.incStateTax ? (ammountFinanced + ((parseFloat(this.state.stateTaxRate) /100) * parseFloat(this.state.dealPrice))) : (ammountFinanced + 0));
-    console.log("ST_AmtFin = " + ammountFinanced);
-    ammountFinanced = (this.state.incAddOn ? (ammountFinanced + parseFloat(this.state.additionalCharges)) : (ammountFinanced + 0));
-    console.log("AmtFin = " + ammountFinanced);
-    ammountFinanced = (this.state.incLocalTax ? (ammountFinanced + ((parseFloat(this.state.localTaxRate) /100) * parseFloat(this.state.dealPrice))) : (ammountFinanced + 0));
-    console.log("LT_AmtFin = " + ammountFinanced);
-    ammountFinanced = (this.state.incDealPro ? (ammountFinanced + parseFloat(this.state.dealerProcessing)) : (ammountFinanced + 0));
-    console.log("AmtFin = " + ammountFinanced);
-    ammountFinanced = (this.state.incTitleFee ? (ammountFinanced + parseFloat(this.state.titleFee)) : (ammountFinanced + 0));
-    console.log("AmtFin = " + ammountFinanced);
-    ammountFinanced = (this.state.incWarranty ? (ammountFinanced + parseFloat(this.state.warrantyCost)) : (ammountFinanced + 0));
-    console.log("AmtFin = " + ammountFinanced);
-    ammountFinanced = (this.state.incTagFee ? (ammountFinanced + parseFloat(this.state.tagFee)) : (ammountFinanced + 0));
-    console.log("AmtFin = " + ammountFinanced);
-    
-    let term = parseFloat(this.state.loanTerm);
+    let term = (parseFloat(this.state.loanTerm));
     console.log("Term = " + term);
-    let rate = parseFloat(this.state.loanRate) / 100;
+    let rate = (parseFloat(this.state.loanRate) / 100);
     console.log("Rate = " + rate);
-    let rateMonthly = parseFloat(rate) / 12;
-    console.log("RateMonthly = " + rateMonthly);
-    console.log("AmtFin = " + ammountFinanced);
-    console.log("rateMonthly = " + rateMonthly);
-    console.log("term = " + term);
-    console.log("Formula = " + ammountFinanced + " * " + " (1 + " + rateMonthly + ") ** " + term + ") / ((1 + " + rateMonthly + ") ** " + term  + " - 1)");
-    let monthlyPayment = ammountFinanced * (rateMonthly * (1 + rateMonthly) ** term) / ((1 + rateMonthly) ** term - 1);
-    return monthlyPayment;
+    let monthlyPayment = 0;
+    if (rate != 0) {
+      let rateMonthly = (parseFloat((rate) / 12));
+      console.log("RateMonthly = " + rateMonthly);
+      console.log("AmtFin = " + AmountFinanced);
+      console.log("rateMonthly = " + rateMonthly);
+      console.log("term = " + term);
+      console.log("Formula = " + AmountFinanced + " * (" + rateMonthly + " (1 + " + rateMonthly + ") ** " + term + ") / ((1 + " + rateMonthly + ") ** " + term + " - 1)");
+      monthlyPayment = AmountFinanced * (rateMonthly * (1 + rateMonthly) ** term) / ((1 + rateMonthly) ** term - 1);
+      let totalPrice = (monthlyPayment * term);
+      let totalInterest = (totalPrice - AmountFinanced);
+      console.log("totalInterest = " + totalInterest);
+      this.setState({
+        financeAmount: AmountFinanced.toFixed(2),
+        financePrice: totalPrice.toFixed(2),
+        financeInterest: totalInterest.toFixed(2),
+        financePayment: monthlyPayment.toFixed(2),
+        financeResult: true
+      });
+    }
+    else {
+      // let rateMonthly = (parseFloat((rate) / 12));
+      // console.log("RateMonthly = " + rateMonthly);
+      console.log("AmtFin = " + AmountFinanced);
+      // console.log("rateMonthly = " + rateMonthly);
+      console.log("term = " + term);
+      // console.log("Formula = " + AmountFinanced + " * (" + rateMonthly + " (1 + " + rateMonthly + ") ** " + term + ") / ((1 + " + rateMonthly + ") ** " + term + " - 1)");
+      console.log("Formula = " + AmountFinanced + " / " + term);
+      // let monthlyPayment = AmountFinanced * (rateMonthly * (1 + rateMonthly) ** term) / ((1 + rateMonthly) ** term - 1);
+      monthlyPayment = AmountFinanced / term;
+      let totalPrice = (monthlyPayment * term);
+      let totalInterest = (totalPrice - AmountFinanced);
+      console.log("totalInterest = " + totalInterest);
+      this.setState({
+        financeAmount: AmountFinanced.toFixed(2),
+        financePrice: totalPrice.toFixed(2),
+        financeInterest: totalInterest.toFixed(2),
+        financePayment: monthlyPayment.toFixed(2),
+        financeResult: true
+      });
+    }
+   return monthlyPayment.toFixed(2);
   };
 
 
@@ -97,6 +152,50 @@ class DealForm extends Component {
   };
 
 
+  //*********************************************/
+  //Process all "Include" checkboxes
+  //*********************************************/
+  toggleIncDealPrice = () => {
+    this.setState({
+      incDealPrice: !this.state.incDealPrice
+    });
+  }
+  toggleIncStateTax = () => {
+    this.setState({
+      incStateTax: !this.state.incStateTax
+    });
+  }
+  toggleIncAddOn = () => {
+    this.setState({
+      incAddOn: !this.state.incAddOn
+    });
+  }
+  toggleIncLocalTax = () => {
+    this.setState({
+      incLocalTax: !this.state.incLocalTax
+    });
+  }
+  toggleIncDealPro = () => {
+    this.setState({
+      incDealPro: !this.state.incDealPro
+    });
+  }
+  toggleIncTitleFee = () => {
+    this.setState({
+      incTitleFee: !this.state.incTitleFee
+    });
+  }
+  toggleIncWarranty = () => {
+    this.setState({
+      incWarranty: !this.state.incWarranty
+    });
+  }
+  toggleIncTagFee = () => {
+    this.setState({
+      incTagFee: !this.state.incTagFee
+    });
+  }
+
 
   handleCalculate = event => {
     event.preventDefault();
@@ -109,316 +208,242 @@ class DealForm extends Component {
         console.log("Error Stupid")
       );
     console.log("Payment = " + payment)
+  };
 
-    //   this.validateUser({
-    //     email: this.state.email,
-    //     password: this.state.password
-    //   });
-    //   console.log("state = " + JSON.stringify(this.state));
+  handleSaveModalToggle = event => {
+    this.setState({
+      saveDealModal: !this.state.saveDealModal
+    });
+  };
+
+  handleLoadModalToggle = event => {
+    this.setState({
+      loadDealModal: !this.state.loadDealModal
+    });
+  };
+
+  handleClearFields = event => {
+    event.preventDefault();
+    console.log("Clearing Fields");
+    this.setState({
+      loanRate: 5.9,
+      loanTerm: 60,
+      dealPrice: 10000,
+      stateTaxRate: 4.15,
+      localTaxRate: 0,
+      additionalCharges: 0,
+      dealerProcessing: 0,
+      titleFee: 75.00,
+      warrantyCost: 0,
+      tagFee: 47.50,
+      tradeIn: 0,
+      downPayment: 0,
+      rebates: 0,
+      discounts: 0,
+      incDealPrice: true,
+      incStateTax: true,
+      incAddOn: true,
+      incLocalTax: true,
+      incDealPro: true,
+      incTitleFee: true,
+      incWarranty: true,
+      incTagFee: true,
+      financeAmount: 0,
+      financePrice: 0,
+      financeInterest: 0,
+      financePayment: 0,
+      financeResult: 0,
+      email: this.state.email,
+      isDeleted: false,
+      dealName: "",
+      dealer: "",
+      vehicle: "",
+      stkOrVIN: "",
+      description: ""
+    })
+  }
+
+  handleGetMyDeals = event => {
+    event.preventDefault();
+    console.log("Get clicked");
+    this.getMyDeals({
+      email: this.state.email
+    })
+  };
+
+  handleLoadDeal = event => {
+    event.preventDefault();
+    console.log("Load clicked");
+    this.loadDeal(event.target.id);
   };
 
 
-  // handleSignup = event => {
-  //   event.preventDefault();
-  //   this.createUser({
-  //     firstName: this.state.fName,
-  //     lastName: this.state.lName,
-  //     email: this.state.email,
-  //     password: this.state.password
-  //   });
-  //   console.log("state = " + JSON.stringify(this.state));
-  //   this.validateUser({
-  //     email: this.state.email,
-  //     password: this.state.password
-  //   });
-  //   // Navigate somewhere
-  // };
+  handleNewDeal = event => {
+    event.preventDefault();
+    console.log("Save clicked");
+    this.saveDeal({
+      loanRate: this.state.loanRate,
+      loanTerm: this.state.loanTerm,
+      dealPrice: this.state.dealPrice,
+      stateTaxRate: this.state.stateTaxRate,
+      localTaxRate: this.state.localTaxRate,
+      additionalCharges: this.state.additionalCharges,
+      dealerProcessing: this.state.dealerProcessing,
+      titleFee: this.state.titleFee,
+      warrantyCost: this.state.warrantyCost,
+      tagFee: this.state.tagFee,
+      tradeIn: this.state.tradeIn,
+      downPayment: this.state.downPayment,
+      rebates: this.state.rebates,
+      discounts: this.state.discounts,
+      incDealPrice: this.state.incDealPrice,
+      incStateTax: this.state.incStateTax,
+      incAddOn: this.state.incAddOn,
+      incLocalTax: this.state.incLocalTax,
+      incDealPro: this.state.incDealPro,
+      incTitleFee: this.state.incTitleFee,
+      incWarranty: this.state.incWarranty,
+      incTagFee: this.state.incTagFee,
+      financeAmount: this.state.financeAmount,
+      financePrice: this.state.financePrice,
+      financeInterest: this.state.financeInterest,
+      financePayment: this.state.financePayment,
+      financeResult: this.state.financeResult,
+      email: this.state.email,
+      isDeleted: false,
+      dealName: this.state.dealName,
+      dealer: this.state.dealer,
+      vehicle: this.state.vehicle,
+      stkOrVIN: this.state.stkOrVIN,
+      description: this.state.description
+    });
+  }
 
 
-  // validateUser = query => {
-  //   API.getUser(query)
-  //     .then(res => {
-  //       console.log("LOGIN: res = " + JSON.stringify(res));
-  //       if (res.data.success) {
-  //         console.log("in success handle");
-  //         this.setState({ isLoggedIn: true, });
-  //         this.setState({ loginMsg: res.data.message });
-  //         window.sessionStorage.setItem("CFC_authkey", res.data.token);
-  //         // window.location.assign('/auth/taskboard');
-  //       } else {
-  //         console.log("in failure handle");
-  //         this.setState({ isLoggedIn: false });
-  //         this.setState({ loginMsg: res.data.message });
-  //         window.sessionStorage.setItem("CFC_authkey", "");
-  //         // window.location.assign('/login');
-  //       }
-  //       console.log("LOGIN: state = " + JSON.stringify(this.state));
-  //     })
-  //     .catch(err => console.log(err));
-  // };
+  saveDeal = query => {
+    console.log("query = " + JSON.stringify(query));
+    API.saveDeal(query)
+      .then(res => {
+        console.log("Save: res = " + JSON.stringify(res));
+        if (res.data.success) {
+          //This is where you might send an email confirmation or auto-login the user
+          console.log("in success handle");
+          this.handleSaveModalToggle();
+          // window.location.assign('/login');
+        } else {
+          console.log("in failure handle");
+          // window.location.assign('/signup');
+        }
+      })
+      .catch(err => console.log(err));
+  };
 
 
-  // createUser = query => {
-  //   console.log("query = " + JSON.stringify(query));
-  //   API.createUser(query)
-  //     .then(res => {
-  //       console.log("LOGIN: res = " + JSON.stringify(res));
-  //       if (res.data.success) {
-  //         //This is where you might send an email confirmation or auto-login the user
-  //         console.log("in success handle");
-  //         // window.location.assign('/login');
-  //       } else {
-  //         console.log("in failure handle");
-  //         // window.location.assign('/signup');
-  //       }
-  //     })
-  //     .catch(err => console.log(err));
-  // };
+  getMyDeals = query => {
+    console.log("query = " + JSON.stringify(query));
+    API.getMyDeals(this.state.email)
+      .then(res => this.setState({ deals: res.data }))
+      .catch(err => console.log(err));
+
+    this.handleLoadModalToggle();
+  };
 
 
+  loadDeal = query => {
+    console.log("in loadDeal.............")
+    console.log("query = " + JSON.stringify(query));
+    API.loadDeal(query)
+      .then(res => {
+        console.log("res.data = " + JSON.stringify(res.data));
+        this.setState({ ...res.data })
+        // console.log("data val = " + this.state.dealData.financeAmount)
+      })
+      .catch(err => console.log(err));
+
+    this.handleLoadModalToggle();
+    // console.log("deal data finAmt = " + this.state.dealData.financeAmount);
+  };
+
+
+  /*************************************************************************************************************************/
+  /*************************************************************************************************************************/
+  /*************************************************************************************************************************/
   render() {
     return (
 
       <div>
-        <Container>
-          <Row className="top_Filler">
-          </Row>
-        </Container>
+        <TopFill />
+
+        <Modal className="saveDeal_Modal" isOpen={this.state.saveDealModal} toggle={this.saveDealModalToggle}>
+          <SaveModal
+            change={this.handleInputChange}
+            save={this.handleNewDeal}
+            toggle={this.handleSaveModalToggle} />
+        </Modal>
+
+        <Modal className="loadDeal_Modal" isOpen={this.state.loadDealModal} toggle={this.loadDealModalToggle}>
+          <LoadModal
+            // change={this.handleInputChange}
+            // save={this.handleNewDeal}
+            deals={this.state.deals}
+            loadDeal={this.handleLoadDeal}
+            toggle={this.handleLoadModalToggle} />
+        </Modal>
 
         <Container className="welcome_Box">
-          <Row className="">
-            <Col className="text-center py-0 mt-3" sm="12">
-              {/* <FontAwesomeIcon className="icon_Traits" icon="shield-alt" size="6x" /> */}
-              <h3 className="product_Title mb-0">Car Financing Calculator DP</h3>
-              <h5 className="product_Slogan pb-4">Track your deals and what fits your budget</h5>
-            </Col>
-          </Row>
-          <div className="">
+          <Banner />
+
+          <div className="mainForm pb-4">
 
 
             {/***********************************************************************************************************/}
-            <Row className="pb-0">
-              <Col className="top_Box" sm={{ size: 6, offset: 3 }}>
-                <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Loan Details</h5>
-                <p className="instructions">Enter the financing rate and term of the loan in months.</p>
-
-                <Row className="loan_Section pb-3 ">
-                  <Col className="left_Inputs" sm={{ size: 6 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="loan_rate">Rate</Label>
-                      <InputGroup size="sm">
-                        <Input type="text" min="0" bsSize="sm" name="loanRate" id="loan_rate" step="1.00" className="form-control text-right" value="10" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">%</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col className="right_Inputs" sm={{ size: 6 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="loan_term">Term</Label>
-                      <InputGroup size="sm">
-                        <Input type="text" min="0" bsSize="sm" name="loanTerm" id="loan_term" step="1.00" className="form-control text-right" value="60" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">months</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-
+            <LoanTerms
+              valRate={this.state.loanRate}
+              valTerm={this.state.loanTerm}
+              change={this.handleInputChange}
+              getDeals={this.handleGetMyDeals}
+              clearFields={this.handleClearFields}
+            />
 
             {/***********************************************************************************************************/}
-            <Row className="pb-0">
-              <Col className="page_Box" sm={{ size: 6, offset: 3 }}>
-                <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Costs</h5>
-                <p className="instructions">Enter the costs for the items.  Enable the switch for items to be included in financing.</p>
-
-                <Row className="cost_Section pb-1 ">
-                  <Col className="left_Switch" sm={{ size: 1 }}>
-                    <FormGroup className="mt-2 mb-2 pt-4 pb-2">
-                      <CustomInput className="ml-2 pr-3" type="switch" name="incDealPrice" id="include_DealPrice" checked="true" onChange={this.handleInputChange} />
-                    </FormGroup>
-                  </Col>
-                  <Col className="left_Inputs" sm={{ size: 5 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="deal_price">Vehicle Price</Label>
-                      <InputGroup size="sm">
-                        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                        <Input type="text" min="0" bsSize="sm" name="dealPrice" id="deal_price" step="1.00" className="form-control text-right" value="10000" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">.00</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col className="right_Inputs" sm={{ size: 5 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="state_TaxRate">State Tax Rate</Label>
-                      <InputGroup size="sm">
-                        <Input type="text" min="0" bsSize="sm" name="stateTaxRate" id="state_TaxRate" step="1.00" className="form-control text-right" value="10" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">%</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col className="right_Switch" sm={{ size: 1 }}>
-                    <FormGroup className="mt-2 mb-2 pt-4 pb-2">
-                      <CustomInput className="mr-2 pl-3" type="switch" name="incStateTax" id="include_StateTax" checked="true" onChange={this.handleInputChange} />
-                    </FormGroup>
-                  </Col>
-                </Row>
-
-                <Row className="cost_Section pb-1 ">
-                  <Col className="left_Switch" sm={{ size: 1 }}>
-                    <FormGroup className="mt-2 mb-2 pt-4 pb-2">
-                      <CustomInput className="ml-2 pr-3" type="switch" name="incAddOn" id="include_AddOn" onChange={this.handleInputChange} />
-                    </FormGroup>
-                  </Col>
-                  <Col className="left_Inputs" sm={{ size: 5 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="additional_charges">Add-on Charges</Label>
-                      <InputGroup size="sm">
-                        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                        <Input type="text" min="0" bsSize="sm" name="additionalCharges" id="additional_charges" step="1.00" className="form-control text-right" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">.00</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col className="right_Inputs" sm={{ size: 5 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="local_TaxRate">Local Tax Rate</Label>
-                      <InputGroup size="sm">
-                        <Input type="text" min="0" bsSize="sm" name="localTaxRate" id="local_TaxRate" step="1.00" className="form-control text-right" value="10" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">%</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col className="right_Switch" sm={{ size: 1 }}>
-                    <FormGroup className="mt-2 mb-2 pt-4 pb-2">
-                      <CustomInput className="mr-2 pl-3" type="switch" name="incLocalTax" id="include_LocalTax" checked="true" onChange={this.handleInputChange} />
-                    </FormGroup>
-                  </Col>
-                </Row>
-
-                <Row className="cost_Section pb-1 ">
-                  <Col className="left_Switch" sm={{ size: 1 }}>
-                    <FormGroup className="mt-2 mb-2 pt-4 pb-2">
-                      <CustomInput className="ml-2 pr-3" type="switch" name="incDealPro" id="include_DealPro" onChange={this.handleInputChange} />
-                    </FormGroup>
-                  </Col>
-                  <Col className="left_Inputs" sm={{ size: 5 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="dealer_processing">Dealer Processing</Label>
-                      <InputGroup size="sm">
-                        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                        <Input type="text" min="0" bsSize="sm" name="dealerProcessing" id="dealer_processing" step="1.00" className="form-control text-right" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">.00</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col className="right_Inputs" sm={{ size: 5 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="title_fee">Title</Label>
-                      <InputGroup size="sm">
-                        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                        <Input type="text" min="0" bsSize="sm" name="titleFee" id="title_fee" step="1.00" className="form-control text-right" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">.00</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col className="right_Switch" sm={{ size: 1 }}>
-                    <FormGroup className="mt-2 mb-2 pt-4 pb-2">
-                      <CustomInput className="mr-2 pl-3" type="switch" name="incTitleFee" id="include_TitleFee" onChange={this.handleInputChange} />
-                    </FormGroup>
-                  </Col>
-                </Row>
-
-                <Row className="cost_Section pb-3 ">
-                  <Col className="left_Switch" sm={{ size: 1 }}>
-                    <FormGroup className="mt-2 mb-2 pt-4 pb-2">
-                      <CustomInput className="ml-2 pr-3" type="switch" name="incWarranty" id="include_Warranty" onChange={this.handleInputChange} />
-                    </FormGroup>
-                  </Col>
-                  <Col className="left_Inputs" sm={{ size: 5 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="warranty_cost">Warranty</Label>
-                      <InputGroup size="sm">
-                        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                        <Input type="text" min="0" bsSize="sm" name="warrantyCost" id="warranty_cost" step="1.00" className="form-control text-right" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">.00</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col className="right_Inputs" sm={{ size: 5 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="tag_fee">Tags</Label>
-                      <InputGroup size="sm">
-                        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                        <Input type="text" min="0" bsSize="sm" name="tagFee" id="tag_fee" step="1.00" className="form-control text-right" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">.00</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col className="right_Switch" sm={{ size: 1 }}>
-                    <FormGroup className="mt-2 mb-2 pt-4 pb-2">
-                      <CustomInput className="mr-2 pl-3" type="switch" name="incTagFee" id="include_TagFee" onChange={this.handleInputChange} />
-                    </FormGroup>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-
+            <Costs
+              valDealPrice={this.state.dealPrice}
+              valStateTax={this.state.stateTaxRate}
+              valAddCharges={this.state.additionalCharges}
+              valLocalTax={this.state.localTaxRate}
+              valDealerPro={this.state.dealerProcessing}
+              valTitleFee={this.state.titleFee}
+              valWarranty={this.state.warrantyCost}
+              valTagFee={this.state.tagFee}
+              incAddOn={this.state.incAddOn}
+              toggleAddOn={this.toggleIncAddOn}
+              incDealPrice={this.state.incDealPrice}
+              toggleDealPrice={this.toggleIncDealPrice}
+              incDealPro={this.state.incDealPro}
+              toggleDealPro={this.toggleIncDealPro}
+              incLocalTax={this.state.incLocalTax}
+              toggleLocalTax={this.toggleIncLocalTax}
+              incStateTax={this.state.incStateTax}
+              toggleStateTax={this.toggleIncStateTax}
+              incTagFee={this.state.incTagFee}
+              toggleTagFee={this.toggleIncTagFee}
+              incTitleFee={this.state.incTitleFee}
+              toggleTitleFee={this.toggleIncTitleFee}
+              incWarranty={this.state.incWarranty}
+              toggleWarranty={this.toggleIncWarranty}
+              change={this.handleInputChange}
+            />
 
             {/***********************************************************************************************************/}
-            <Row className="pb-0">
-              <Col className="page_Box" sm={{ size: 6, offset: 3 }}>
-                <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Offsets</h5>
-                <p className="instructions">Enter the dollar amount for each credit.  Enable the switch for items to be included in financing.</p>
+            <Offsets
+              valTradeIn={this.state.tradeIn}
+              valDownPymt={this.state.downPayment}
+              valRebates={this.state.rebates}
+              valDiscounts={this.state.discounts}
+              change={this.handleInputChange}
+            />
 
-                <Row className="offset_Section pb-1 ">
-                  <Col className="left_Inputs" sm={{ size: 6 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="trade_in">Trade-In</Label>
-                      <InputGroup size="sm">
-                        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                        <Input type="text" min="0" bsSize="sm" name="tradeIn" id="trade_in" step="1.00" className="form-control text-right" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">.00</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col className="right_Inputs" sm={{ size: 6 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="down_payment">Down Payment</Label>
-                      <InputGroup size="sm">
-                        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                        <Input type="text" min="0" bsSize="sm" name="downPayment" id="down_payment" step="1.00" className="form-control text-right" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">.00</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                </Row>
-
-                <Row className="offset_Section pb-3 ">
-                  <Col className="left_Inputs" sm={{ size: 6 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="rebates">Rebates</Label>
-                      <InputGroup size="sm">
-                        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                        <Input type="text" min="0" bsSize="sm" name="rebates" id="rebates" step="1.00" className="form-control text-right" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">.00</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col className="right_Inputs" sm={{ size: 6 }}>
-                    <FormGroup className="mt-1 mb-3">
-                      <Label className="label_Text mb-0" for="discounts">Discounts</Label>
-                      <InputGroup size="sm">
-                        <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                        <Input type="text" min="0" bsSize="sm" name="discounts" id="discounts" step="1.00" className="form-control text-right" onChange={this.handleInputChange} />
-                        <InputGroupAddon addonType="append">.00</InputGroupAddon>
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-
+            {/***********************************************************************************************************/}
             <Row className="pb-0">
               <Col className="bottom_Box" sm={{ size: 6, offset: 3 }}>
                 <div className="text-center">
@@ -429,9 +454,16 @@ class DealForm extends Component {
 
           </div>
 
-
-
-          <p className="copyright text-center mt-1 mb-3">Copyright © 2019 - Steven M. Carpenter</p>
+          {this.state.financeResult ? (
+            <ResultsDisplay
+              financeAmount={this.state.financeAmount}
+              financeInterest={this.state.financeInterest}
+              financePrice={this.state.financePrice}
+              financePayment={this.state.financePayment}
+              onSave={this.handleSaveModalToggle} />
+          ) : (
+              <div></div>
+            )}
         </Container>
       </div >
     );
