@@ -30,7 +30,7 @@ export function LoanTerms(props) {
           </Col>
         </Row>
 
-        <Row className="loan_Section pb-3 ">
+        <Row className="loan_Section pb-1 ">
           <Col className="left_Inputs" sm={{ size: 6 }}>
             <InputRate
               for="loan_rate"
@@ -61,9 +61,9 @@ export function Costs(props) {
     <Row className="pb-0">
       <Col className="page_Box" sm={{ size: 6, offset: 3 }}>
         <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Costs</h5>
-        <p className="instructions">Enter the costs for the items.  Set the switch to on for items to be included in financing.</p>
+        <p className="instructions mb-2">Enter the costs for the items.  Set the switch to on for items to be included in financing.</p>
 
-        <Row className="cost_Section pb-1 ">
+        <Row className="cost_Section pb-0 ">
           <Col className="left_Switch" sm={{ size: 1 }}>
             <SwitchLeft
               name="incDealPrice"
@@ -100,7 +100,7 @@ export function Costs(props) {
           </Col>
         </Row>
 
-        <Row className="cost_Section pb-1 ">
+        <Row className="cost_Section pb-0 ">
           <Col className="left_Switch" sm={{ size: 1 }}>
             <SwitchLeft
               name="incAddOn"
@@ -137,7 +137,7 @@ export function Costs(props) {
           </Col>
         </Row>
 
-        <Row className="cost_Section pb-1 ">
+        <Row className="cost_Section pb-0 ">
           <Col className="left_Switch" sm={{ size: 1 }}>
             <SwitchLeft
               name="incDealPro"
@@ -221,7 +221,7 @@ export function Offsets(props) {
     <Row className="pb-0">
       <Col className="page_Box" sm={{ size: 6, offset: 3 }}>
         <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Offsets</h5>
-        <p className="instructions">Enter the dollar amount for each credit.  Enable the switch for items to be included in financing.</p>
+        <p className="instructions mb-2">Enter the dollar amount for each credit.  Enable the switch for items to be included in financing.</p>
 
         <Row className="offset_Section pb-1 ">
           <Col className="left_Inputs" sm={{ size: 6 }}>

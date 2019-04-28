@@ -1,4 +1,4 @@
-
+/* 
 .top_Box {
   border: 2px solid black;
   border-bottom: 0px solid black;
@@ -16,7 +16,6 @@
 
 .full_Box {
   border: 2px solid black;
-  /* border-bottom: 0px solid black; */
 }
 
 .instructions {
@@ -30,4 +29,23 @@
 
 .list-group-item {
   border: 1px solid black;
+} */
+
+tr.list-group-item {
+  border: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.load_Deal {
+  font-size: 14px;
+}
+
+.process_Button {
+  background-color: green !important;
+}
+
+.load_Button {
+  background-color: green !important;
+  font-size: 10px !important;
 }

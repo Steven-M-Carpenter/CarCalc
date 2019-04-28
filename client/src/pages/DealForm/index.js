@@ -451,7 +451,7 @@ class DealForm extends Component {
             <Row className="pb-0">
               <Col className="bottom_Box" sm={{ size: 6, offset: 3 }}>
                 <div className="text-center">
-                  <Button className="access_Button mt-3 mb-4" onClick={this.handleCalculate} >Calculate</Button>
+                  <Button className="access_Button mt-2 mb-3" onClick={this.handleCalculate} >Calculate</Button>
                 </div>
               </Col>
             </Row>
