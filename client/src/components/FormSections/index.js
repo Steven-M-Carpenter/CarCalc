@@ -7,6 +7,7 @@ import { InputRate, InputDollars, SwitchLeft, SwitchRight } from "../../componen
 
 export function LoanTerms(props) {
   return (
+    <div className="test_color">
     <Row className="pb-0">
       <Col className="top_Box" sm={{ size: 6, offset: 3 }}>
         <Row>
@@ -53,6 +54,7 @@ export function LoanTerms(props) {
         </Row>
       </Col>
     </Row>
+    </div>
   );
 }
 

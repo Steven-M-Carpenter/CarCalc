@@ -5,7 +5,7 @@ import { Button, Row, Col } from 'reactstrap';
 
 export function ResultsDisplay(props) {
   return (
-    <Row className="pb-0 pt-3">
+    <Row className="pb-3 pt-3">
       <Col className="full_Box" sm={{ size: 8, offset: 2 }}>
         <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Payment Details</h5>
         <Row className="loan_Section pb-2 ">

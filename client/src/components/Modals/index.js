@@ -10,8 +10,8 @@ export function SaveModal(props) {
   return (
     <div>
       <ModalHeader className="saveDeal_MHeader pt-1 pb-2">Save This Deal</ModalHeader>
-      <ModalBody className="pt-1 pb-1">
-        <Form className="saveDeal_ModalForm">
+      <ModalBody className="saveDeal_MBody pt-1 pb-1">
+        <Form className="saveDeal_MForm">
           <FormGroup className="mt-2">
             <Label className="label_Text mb-0" for="deal_Name">Name this deal</Label>
             <Input className="input_block" type="text" name="dealName" id="deal_Name" bsSize="sm" placeholder="Name" onChange={props.change} />
@@ -26,7 +26,7 @@ export function SaveModal(props) {
           </FormGroup>
         </Form>
       </ModalBody>
-      <ModalFooter className="text-center">
+      <ModalFooter className="saveDeal_MFooter text-center">
         <Button className="process_Button mt-0 mb-0" onClick={props.save} >Save</Button>
         <Button className="process_Button mt-0 mb-0" onClick={props.toggle} >Cancel</Button>
       </ModalFooter>
@@ -39,7 +39,7 @@ export function LoadModal(props) {
   return (
     <div>
       <ModalHeader className="loadDeal_MHeader  pt-1 pb-2">Load A Deal</ModalHeader>
-      <ModalBody className="pt-1 pb-1">
+      <ModalBody className="loadDeal_MBody pt-1 pb-1">
         {props.deals.length ? (
           <List>
             {props.deals.map(deal => (
@@ -80,7 +80,7 @@ export function LoadModal(props) {
         </FormGroup>
       </Form> */}
       </ModalBody>
-      <ModalFooter className="text-center">
+      <ModalFooter className="loadDeal_MFooter text-center">
         {/* <Button className="process_Button mt-0 mb-0" onClick={props.save} >Save</Button> */}
         <Button className="process_Button mt-0 mb-0" onClick={props.toggle} >Cancel</Button>
       </ModalFooter>

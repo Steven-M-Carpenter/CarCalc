@@ -18,16 +18,16 @@ class DealForm extends Component {
   state = {
     deals: [],
     allValues: true,
-    loanRate: 10,
+    loanRate: 5.9,
     loanTerm: 60,
-    dealPrice: 10000,
-    stateTaxRate: 10,
-    localTaxRate: 10,
+    dealPrice: 25000,
+    stateTaxRate: 4.15,
+    localTaxRate: 0,
     additionalCharges: 0,
-    dealerProcessing: 0,
-    titleFee: 0,
+    dealerProcessing: 199,
+    titleFee: 75.00,
     warrantyCost: 0,
-    tagFee: 0,
+    tagFee: 47.50,
     tradeIn: 0,
     downPayment: 0,
     rebates: 0,
@@ -375,7 +375,7 @@ class DealForm extends Component {
   render() {
     return (
 
-      <div>
+      <div className="whole_Form">
         <TopFill />
 
         <Modal className="saveDeal_Modal" isOpen={this.state.saveDealModal} toggle={this.saveDealModalToggle}>

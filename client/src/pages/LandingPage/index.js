@@ -104,7 +104,7 @@ class LandingPage extends Component {
   render() {
     return (
 
-      <div>
+      <div className="whole_Form">
         <TopFill />
         <Container className="welcome_Box">
           <Banner />

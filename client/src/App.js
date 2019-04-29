@@ -4,14 +4,16 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-d
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShieldAlt, faPlusCircle, faUser, } from '@fortawesome/free-solid-svg-icons';
+// import { faShieldAlt, faPlusCircle, faUser, faCar } from '@fortawesome/free-solid-svg-icons';
+import { faCar } from '@fortawesome/free-solid-svg-icons';
 
 import NoMatch from "./pages/NoMatch";
 import Logout from './pages/Logout';
 import LandingPage from './pages/LandingPage';
 import DealForm from './pages/DealForm';
 
-library.add(faShieldAlt, faPlusCircle, faUser)
+// library.add(faShieldAlt, faPlusCircle, faUser, faCar)
+library.add(faCar)
 
 class App extends Component {
   state = {

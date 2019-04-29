@@ -1,40 +1,8 @@
-/* 
-.top_Box {
-  border: 2px solid black;
-  border-bottom: 0px solid black;
-}
-
-.page_Box {
-  border: 2px solid black;
-  border-bottom: 0px solid black;
-}
-
-.bottom_Box {
-  border: 2px solid black;
-  border-top: 0px solid black;
-}
-
-.full_Box {
-  border: 2px solid black;
-}
-
-.instructions {
-  font-size: 12px;
-}
-
-.copyright {
-  font-size: 10px;
-  color: lightgrey;
-}
-
-.list-group-item {
-  border: 1px solid black;
-} */
-
 tr.list-group-item {
   border: 0px;
   padding-top: 8px;
   padding-bottom: 8px;
+  /* background-color: #ccffcc; */
 }
 
 .load_Deal {
@@ -49,3 +17,36 @@ tr.list-group-item {
   background-color: green !important;
   font-size: 10px !important;
 }
+
+.saveDeal_MHeader {
+  background-color: #ccffcc;
+}
+
+.saveDeal_MForm {
+  background-color: #ccffcc;
+}
+
+.saveDeal_MBody {
+  background-color: #ccffcc;
+}
+
+.saveDeal_MFooter {
+  background-color: #ccffcc;
+}
+
+.loadDeal_MHeader {
+  background-color: #ccffcc;
+}
+
+.loadDeal_MForm {
+  background-color: #ccffcc;
+}
+
+.loadDeal_MBody {
+  /* background-color: #ccffcc; */
+}
+
+.loadDeal_MFooter {
+  background-color: #ccffcc;
+}
+
