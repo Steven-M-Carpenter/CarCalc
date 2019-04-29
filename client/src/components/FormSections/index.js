@@ -71,7 +71,7 @@ export function Costs(props) {
               name="incDealPrice"
               id="include_DealPrice"
               checked={props.incDealPrice}
-              onChange={props.toggleDealPrice} />
+              onChange={props.toggleChk} />
           </Col>
           <Col className="left_Inputs" sm={{ size: 5 }}>
             <InputDollars
@@ -98,7 +98,7 @@ export function Costs(props) {
               name="incStateTax"
               id="include_StateTax"
               checked={props.incStateTax}
-              onChange={props.toggleStateTax} />
+              onChange={props.toggleChk} />
           </Col>
         </Row>
 
@@ -108,7 +108,7 @@ export function Costs(props) {
               name="incAddOn"
               id="include_AddOn"
               checked={props.incAddOn}
-              onChange={props.toggleAddOn} />
+              onChange={props.toggleChk} />
           </Col>
           <Col className="left_Inputs" sm={{ size: 5 }}>
             <InputDollars
@@ -135,7 +135,7 @@ export function Costs(props) {
               name="incLocalTax"
               id="include_LocalTax"
               checked={props.incLocalTax}
-              onChange={props.toggleLocalTax} />
+              onChange={props.toggleChk} />
           </Col>
         </Row>
 
@@ -145,7 +145,7 @@ export function Costs(props) {
               name="incDealPro"
               id="include_DealPro"
               checked={props.incDealPro}
-              onChange={props.toggleDealPro} />
+              onChange={props.toggleChk} />
           </Col>
           <Col className="left_Inputs" sm={{ size: 5 }}>
             <InputDollars
@@ -172,7 +172,7 @@ export function Costs(props) {
               name="incTitleFee"
               id="include_TitleFee"
               checked={props.incTitleFee}
-              onChange={props.toggleTitleFee} />
+              onChange={props.toggleChk} />
           </Col>
         </Row>
 
@@ -182,7 +182,7 @@ export function Costs(props) {
               name="incWarranty"
               id="include_Warranty"
               checked={props.incWarranty}
-              onChange={props.toggleWarranty} />
+              onChange={props.toggleChk} />
           </Col>
           <Col className="left_Inputs" sm={{ size: 5 }}>
             <InputDollars
@@ -209,7 +209,7 @@ export function Costs(props) {
               name="incTagFee"
               id="include_TagFee"
               checked={props.incTagFee}
-              onChange={props.toggleTagFee} />
+              onChange={props.toggleChk} />
           </Col>
         </Row>
       </Col>

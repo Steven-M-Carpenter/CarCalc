@@ -157,48 +157,14 @@ class DealForm extends Component {
 
 
   //*********************************************/
-  //Process all "Include" checkboxes
+  //Process "Include" checkboxes
   //*********************************************/
-  toggleIncDealPrice = () => {
+  handleCheckBoxChange = (event) => {
+    const { name, checked } = event.target;
     this.setState({
-      incDealPrice: !this.state.incDealPrice
+      [name]: checked
     });
-  }
-  toggleIncStateTax = () => {
-    this.setState({
-      incStateTax: !this.state.incStateTax
-    });
-  }
-  toggleIncAddOn = () => {
-    this.setState({
-      incAddOn: !this.state.incAddOn
-    });
-  }
-  toggleIncLocalTax = () => {
-    this.setState({
-      incLocalTax: !this.state.incLocalTax
-    });
-  }
-  toggleIncDealPro = () => {
-    this.setState({
-      incDealPro: !this.state.incDealPro
-    });
-  }
-  toggleIncTitleFee = () => {
-    this.setState({
-      incTitleFee: !this.state.incTitleFee
-    });
-  }
-  toggleIncWarranty = () => {
-    this.setState({
-      incWarranty: !this.state.incWarranty
-    });
-  }
-  toggleIncTagFee = () => {
-    this.setState({
-      incTagFee: !this.state.incTagFee
-    });
-  }
+  };
 
 
   handleCalculate = event => {
@@ -420,21 +386,14 @@ class DealForm extends Component {
               valWarranty={this.state.warrantyCost}
               valTagFee={this.state.tagFee}
               incAddOn={this.state.incAddOn}
-              toggleAddOn={this.toggleIncAddOn}
               incDealPrice={this.state.incDealPrice}
-              toggleDealPrice={this.toggleIncDealPrice}
               incDealPro={this.state.incDealPro}
-              toggleDealPro={this.toggleIncDealPro}
               incLocalTax={this.state.incLocalTax}
-              toggleLocalTax={this.toggleIncLocalTax}
               incStateTax={this.state.incStateTax}
-              toggleStateTax={this.toggleIncStateTax}
               incTagFee={this.state.incTagFee}
-              toggleTagFee={this.toggleIncTagFee}
               incTitleFee={this.state.incTitleFee}
-              toggleTitleFee={this.toggleIncTitleFee}
               incWarranty={this.state.incWarranty}
-              toggleWarranty={this.toggleIncWarranty}
+              toggleChk={this.handleCheckBoxChange}
               change={this.handleInputChange}
             />
 
