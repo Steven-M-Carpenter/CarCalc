@@ -8,7 +8,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCar } from '@fortawesome/free-solid-svg-icons';
 
 import NoMatch from "./pages/NoMatch";
-import Logout from './pages/Logout';
+// import Logout from './pages/Logout';
 import LandingPage from './pages/LandingPage';
 import DealForm from './pages/DealForm';
 
