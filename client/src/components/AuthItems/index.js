@@ -9,7 +9,7 @@ export function LoginBox(props) {
   return (
     <div className="login_div">
       <Row className="pb-2">
-        <Col className="full_Box" sm={{ size: 4, offset: 4 }}>
+        <Col className="full_Box" lg={{ size: 4, offset: 4 }}>
           <h5 className="account_Labels text-center pt-2 pb-1">Access Your Account</h5>
           <Form className="access_Form">
             <FormGroup size="sm" className="mt-1 mb-2">
@@ -35,7 +35,7 @@ export function SignupBox(props) {
   return (
     <div className="signup_div pb-3 pt-2">
     <Row>
-    <Col className="full_Box" sm={{ size: 4, offset: 4 }}>
+    <Col className="full_Box" lg={{ size: 4, offset: 4 }}>
       <h5 className="account_Labels pt-2 pb-1 text-center">Create An Account</h5>
         <Form>
           <FormGroup className="mt-1 mb-2">
