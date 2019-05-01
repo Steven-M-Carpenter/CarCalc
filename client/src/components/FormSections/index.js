@@ -66,14 +66,16 @@ export function Costs(props) {
         <p className="instructions mb-2">Enter the costs for the items.  Set the switch to on for items to be included in financing.</p>
 
         <Row className="cost_Section pb-0 ">
-          <Col className="left_Switch" xs={{ size: 1 }}>
+          {/* <Col className="left_Switch" xs={{ size: 1 }}> */}
+          <Col className="left_Switch" xs="3" sm="1">
             <SwitchLeft
               name="incDealPrice"
               id="include_DealPrice"
               checked={props.incDealPrice}
               onChange={props.toggleChk} />
           </Col>
-          <Col className="left_Inputs" xs={{ size: 5 }}>
+          {/* <Col className="left_Inputs" xs={{ size: 5 }}> */}
+          <Col className="left_Inputs" xs="9" sm="5">
             <InputDollars
               for="deal_price"
               label="Vehicle Price"
@@ -83,7 +85,8 @@ export function Costs(props) {
               value={props.valDealPrice}
               onChange={props.change} />
           </Col>
-          <Col className="right_Inputs" xs={{ size: 5 }}>
+          {/* <Col className="right_Inputs" xs={{ size: 5 }}> */}
+          <Col className="left_Inputs" xs="9" sm="5">
             <InputRate
               for="state_TaxRate"
               label="State Tax Rate"
@@ -93,7 +96,8 @@ export function Costs(props) {
               value={props.valStateTax}
               onChange={props.change} />
           </Col>
-          <Col className="right_Switch" xs={{ size: 1 }}>
+          {/* <Col className="right_Switch" xs={{ size: 1 }}> */}
+          <Col className="left_Switch" xs="3" sm="1">
             <SwitchRight
               name="incStateTax"
               id="include_StateTax"
