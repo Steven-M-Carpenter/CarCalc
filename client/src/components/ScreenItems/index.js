@@ -19,7 +19,7 @@ export function TopFill() {
 export function Banner() {
   return (
     <Row className="">
-      <Col className="text-center py-0 mt-3" lg="12">
+      <Col className="text-center py-0 mt-3" xs="12">
         {/* <FontAwesomeIcon className="icon_Traits" icon="shield-alt" size="6x" /> */}
         <FontAwesomeIcon className="icon_Traits" icon="car" size="7x" />
         <h3 className="product_Title mb-0">Auto Deal Pro</h3>
