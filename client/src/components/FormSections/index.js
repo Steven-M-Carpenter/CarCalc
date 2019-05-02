@@ -11,28 +11,36 @@ export function LoanTerms(props) {
     <Row className="pb-0">
       <Col className="top_Box" xs={{ size: 6, offset: 3 }}>
         <Row>
-          <Col className="secTitle" xs={{ size: 8 }}>
+          <Col className="secTitle" xs="12" sm="12" md="12" lg="12">
             <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Loan Details</h5>
           </Col>
-          <Col className="secButton pr-1" xs={{ size: 4 }}>
-            <div className="text-right">
+
+        </Row>
+        <Row>
+          <Col className="secTitle" xs="12" sm="12" md="12" lg="12">
+            <p className="instructions">Enter the financing rate and term of the loan in months.</p>
+          </Col>
+        </Row>
+        <Row>  
+          <Col className="secButton pl-2 pr-1" xs="12" sm="12" md={{size: 6, offset: 0 }} lg={{size: 6, offset: 0 }}>
+            <div className="text-center">
               <Button size="sm" className="access_Button mt-1 mb-1" onClick={props.getDeals} >Load Saved Deal</Button>
             </div>
           </Col>
-        </Row>
-        <Row>
-          <Col className="secTitle" xs={{ size: 8 }}>
-            <p className="instructions">Enter the financing rate and term of the loan in months.</p>
-          </Col>
-          <Col className="secButton pr-1" xs={{ size: 4 }}>
-            <div className="text-right">
+          <Col className="secButton pr-1"  xs="12" sm="12" md={{size: 6, offset: 0 }} lg={{size: 6, offset: 0 }}>
+            <div className="text-center">
               <Button size="sm" className="access_Button mt-1 mb-1" onClick={props.clearFields} >New Deal</Button>
             </div>
           </Col>
+          {/* <Col className="secButton pr-2"  xs="12" sm="6" md="6" lg="4">
+            <div className="text-center">
+              <Button size="sm" className="access_Button mt-1 mb-1" onClick={props.logoffCommand} >Logoff</Button>
+            </div>
+          </Col> */}
         </Row>
 
         <Row className="loan_Section pb-1 ">
-          <Col className="left_Inputs" xs={{ size: 6 }}>
+          <Col className="left_Inputs" xs="12" sm="5" md="6" lg="6">
             <InputRate
               for="loan_rate"
               label="Rate"
@@ -42,7 +50,7 @@ export function LoanTerms(props) {
               value={props.valRate}
               onChange={props.change} />
           </Col>
-          <Col className="right_Inputs" xs={{ size: 6 }}>
+          <Col className="right_Inputs" xs="12" sm="7" md="6" lg="6">
             <FormGroup className="mt-1 mb-3">
               <Label className="label_Text mb-0" for="loan_term">Term</Label>
               <InputGroup size="sm">
@@ -67,7 +75,7 @@ export function Costs(props) {
 
         <Row className="cost_Section pb-0 ">
           {/* <Col className="left_Switch" xs={{ size: 1 }}> */}
-          <Col className="left_Switch" xs="3" sm="1">
+          <Col className="left_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchLeft
               name="incDealPrice"
               id="include_DealPrice"
@@ -75,7 +83,7 @@ export function Costs(props) {
               onChange={props.toggleChk} />
           </Col>
           {/* <Col className="left_Inputs" xs={{ size: 5 }}> */}
-          <Col className="left_Inputs" xs="9" sm="5">
+          <Col className="left_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputDollars
               for="deal_price"
               label="Vehicle Price"
@@ -86,7 +94,7 @@ export function Costs(props) {
               onChange={props.change} />
           </Col>
           {/* <Col className="right_Inputs" xs={{ size: 5 }}> */}
-          <Col className="left_Inputs" xs="9" sm="5">
+          <Col className="right_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputRate
               for="state_TaxRate"
               label="State Tax Rate"
@@ -97,7 +105,7 @@ export function Costs(props) {
               onChange={props.change} />
           </Col>
           {/* <Col className="right_Switch" xs={{ size: 1 }}> */}
-          <Col className="left_Switch" xs="3" sm="1">
+          <Col className="right_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchRight
               name="incStateTax"
               id="include_StateTax"
@@ -107,14 +115,14 @@ export function Costs(props) {
         </Row>
 
         <Row className="cost_Section pb-0 ">
-          <Col className="left_Switch" xs={{ size: 1 }}>
+          <Col className="left_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchLeft
               name="incAddOn"
               id="include_AddOn"
               checked={props.incAddOn}
               onChange={props.toggleChk} />
           </Col>
-          <Col className="left_Inputs" xs={{ size: 5 }}>
+          <Col className="left_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputDollars
               for="additional_charges"
               label="Add-on Charges"
@@ -124,7 +132,7 @@ export function Costs(props) {
               value={props.valAddCharges}
               onChange={props.change} />
           </Col>
-          <Col className="right_Inputs" xs={{ size: 5 }}>
+          <Col className="right_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputRate
               for="local_TaxRate"
               label="Local Tax Rate"
@@ -134,7 +142,7 @@ export function Costs(props) {
               value={props.valLocalTax}
               onChange={props.change} />
           </Col>
-          <Col className="right_Switch" xs={{ size: 1 }}>
+          <Col className="right_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchRight
               name="incLocalTax"
               id="include_LocalTax"
@@ -144,14 +152,14 @@ export function Costs(props) {
         </Row>
 
         <Row className="cost_Section pb-0 ">
-          <Col className="left_Switch" xs={{ size: 1 }}>
+          <Col className="left_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchLeft
               name="incDealPro"
               id="include_DealPro"
               checked={props.incDealPro}
               onChange={props.toggleChk} />
           </Col>
-          <Col className="left_Inputs" xs={{ size: 5 }}>
+          <Col className="left_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputDollars
               for="dealer_processing"
               label="Dealer Processing"
@@ -161,7 +169,7 @@ export function Costs(props) {
               value={props.valDealerPro}
               onChange={props.change} />
           </Col>
-          <Col className="right_Inputs" xs={{ size: 5 }}>
+          <Col className="right_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputDollars
               for="title_fee"
               label="Title"
@@ -171,7 +179,7 @@ export function Costs(props) {
               value={props.valTitleFee}
               onChange={props.change} />
           </Col>
-          <Col className="right_Switch" xs={{ size: 1 }}>
+          <Col className="right_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchRight
               name="incTitleFee"
               id="include_TitleFee"
@@ -181,14 +189,14 @@ export function Costs(props) {
         </Row>
 
         <Row className="cost_Section pb-3 ">
-          <Col className="left_Switch" xs={{ size: 1 }}>
+          <Col className="left_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchLeft
               name="incWarranty"
               id="include_Warranty"
               checked={props.incWarranty}
               onChange={props.toggleChk} />
           </Col>
-          <Col className="left_Inputs" xs={{ size: 5 }}>
+          <Col className="left_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputDollars
               for="warranty_cost"
               label="Warranty"
@@ -198,7 +206,7 @@ export function Costs(props) {
               value={props.valWarranty}
               onChange={props.change} />
           </Col>
-          <Col className="right_Inputs" xs={{ size: 5 }}>
+          <Col className="right_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputDollars
               for="tag_fee"
               label="Tags"
@@ -208,7 +216,7 @@ export function Costs(props) {
               value={props.valTagFee}
               onChange={props.change} />
           </Col>
-          <Col className="right_Switch" xs={{ size: 1 }}>
+          <Col className="right_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchRight
               name="incTagFee"
               id="include_TagFee"
@@ -230,7 +238,7 @@ export function Offsets(props) {
         <p className="instructions mb-2">Enter the dollar amount for each credit.  Enable the switch for items to be included in financing.</p>
 
         <Row className="offset_Section pb-1 ">
-          <Col className="left_Inputs" xs={{ size: 6 }}>
+          <Col className="left_Inputs" xs="6" sm="6" md="6" lg="6">
             <InputDollars
               for="trade_in"
               label="Trade-In"
@@ -240,7 +248,7 @@ export function Offsets(props) {
               value={props.valTradeIn}
               onChange={props.change} />
           </Col>
-          <Col className="right_Inputs" xs={{ size: 6 }}>
+          <Col className="right_Inputs" xs="6" sm="6" md="6" lg="6">
             <InputDollars
               for="down_payment"
               label="Down Payment"
@@ -253,7 +261,7 @@ export function Offsets(props) {
         </Row>
 
         <Row className="offset_Section pb-3 ">
-          <Col className="left_Inputs" xs={{ size: 6 }}>
+          <Col className="left_Inputs" xs="6" sm="6" md="6" lg="6">
             <InputDollars
               for="rebates"
               label="Rebates"
@@ -263,7 +271,7 @@ export function Offsets(props) {
               value={props.valRebates}
               onChange={props.change} />
           </Col>
-          <Col className="right_Inputs" xs={{ size: 6 }}>
+          <Col className="right_Inputs" xs="6" sm="6" md="6" lg="6">
             <InputDollars
               for="discounts"
               label="Discounts"

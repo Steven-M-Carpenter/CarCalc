@@ -248,6 +248,17 @@ class DealForm extends Component {
   };
 
 
+  handleLogoff = event => {
+    event.preventDefault();
+    console.log("Logoff clicked");
+    // window.location.assign('/logout');
+    // window.location.href('/api/logout');
+    window.location.assign('/logout');
+    // this.loadDeal(event.target.id);
+  };
+
+
+
   handleNewDeal = event => {
     event.preventDefault();
     console.log("Save clicked");
@@ -373,6 +384,7 @@ class DealForm extends Component {
               change={this.handleInputChange}
               getDeals={this.handleGetMyDeals}
               clearFields={this.handleClearFields}
+              logoffCommand={this.handleLogoff}
             />
 
             {/***********************************************************************************************************/}
@@ -408,7 +420,7 @@ class DealForm extends Component {
 
             {/***********************************************************************************************************/}
             <Row className="pb-0">
-              <Col className="bottom_Box" sm={{ size: 6, offset: 3 }}>
+              <Col className="bottom_Box text-center" xs={{ size: 6, offset: 3}}>
                 <div className="text-center">
                   <Button className="access_Button mt-2 mb-3" onClick={this.handleCalculate} >Calculate</Button>
                 </div>

@@ -220,6 +220,7 @@ module.exports = {
   logout: (req, res) => {
     const { query } = req;
     const { token } = query;
+    console.log("Do I ever get called?");
 
     UserSession.findOneAndUpdate({
       _id: token,
