@@ -33,3 +33,10 @@
   /* background-color: #ccffcc; */
   /* background-color: #e6ffe6; */
 }
+
+@media screen and (max-width: 414px) {
+  .container {
+    width: 100%;
+  }
+}
+

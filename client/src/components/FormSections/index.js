@@ -9,7 +9,7 @@ export function LoanTerms(props) {
   return (
     <div className="test_color">
     <Row className="pb-0">
-      <Col className="top_Box" xs={{ size: 6, offset: 3 }}>
+      <Col className="top_Box" xs={{ size: 10, offset: 1 }}>
         <Row>
           <Col className="secTitle" xs="12" sm="12" md="12" lg="12">
             <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Loan Details</h5>
@@ -69,7 +69,7 @@ export function LoanTerms(props) {
 export function Costs(props) {
   return (
     <Row className="pb-0">
-      <Col className="page_Box" xs={{ size: 6, offset: 3 }}>
+      <Col className="page_Box" xs={{ size: 10, offset: 1 }}>
         <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Costs</h5>
         <p className="instructions mb-2">Enter the costs for the items.  Set the switch to on for items to be included in financing.</p>
 
@@ -233,7 +233,7 @@ export function Costs(props) {
 export function Offsets(props) {
   return (
     <Row className="pb-0">
-      <Col className="page_Box" xs={{ size: 6, offset: 3 }}>
+      <Col className="page_Box" xs={{ size: 10, offset: 1 }}>
         <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Offsets</h5>
         <p className="instructions mb-2">Enter the dollar amount for each credit.  Enable the switch for items to be included in financing.</p>
 
