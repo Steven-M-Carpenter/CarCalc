@@ -6,7 +6,7 @@ import { Button, Row, Col } from 'reactstrap';
 export function ResultsDisplay(props) {
   return (
     <Row className="pb-3 pt-3">
-      <Col className="full_Box" xs={{ size: 10, offset: 1 }}>
+      <Col className="full_Box" xs={{ size: 10, offset: 1 }} sm={{ size: 10, offset: 1 }} md={{ size: 8, offset: 2 }} lg={{ size: 6, offset: 3 }}>
         <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Payment Details</h5>
         <Row className="loan_Section pb-2 ">
           <Col className="results pt-2" xs={{ size: 4 }}>
