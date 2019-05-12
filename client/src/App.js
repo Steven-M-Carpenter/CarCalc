@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-d
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCar } from '@fortawesome/free-solid-svg-icons';
 import NoMatch from "./pages/NoMatch";
-import Logout from './pages/Logout';
 import LandingPage from './pages/LandingPage';
 import DealForm from './pages/DealForm';
 
@@ -33,7 +32,6 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/login" component={LandingPage} />
-            <Route exact path="/logout" component={Logout} />
             <Route exact path="/auth" render={() => (
               this.state.isLoggedIn ? (
                 <Redirect to="/auth/deal" />
