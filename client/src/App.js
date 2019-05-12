@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga';
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -8,6 +9,11 @@ import DealForm from './pages/DealForm';
 
 
 library.add(faCar)
+
+function initializeReactGA() {
+  ReactGA.initialize('UA-139996715-1');
+  ReactGA.pageview('/');
+}
 
 class App extends Component {
   state = {}
