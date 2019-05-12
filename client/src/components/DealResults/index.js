@@ -38,4 +38,4 @@ export function ResultsDisplay(props) {
       </Col>
     </Row>
   );
-}
+};

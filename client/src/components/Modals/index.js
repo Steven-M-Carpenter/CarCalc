@@ -1,10 +1,7 @@
 import React from "react";
 import './style.css';
-import { Button, Container, Row, Col, Form, FormGroup, Label, Modal, ModalBody, ModalFooter, ModalHeader, Input, InputGroup, InputGroupAddon, CustomInput } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { Button, Container, Row, Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, CustomInput } from 'reactstrap';
+import { Button, Form, FormGroup, Label, ModalBody, ModalFooter, ModalHeader, Input } from 'reactstrap';
 
-// This file exports the Input, TextArea, and FormBtn components
 
 export function SaveModal(props) {
   return (
@@ -32,7 +29,7 @@ export function SaveModal(props) {
       </ModalFooter>
     </div>
   );
-}
+};
 
 
 export function LoadModal(props) {
@@ -43,51 +40,22 @@ export function LoadModal(props) {
         {props.deals.length ? (
           <List>
             {props.deals.map(deal => (
-              // <ListItem key={deal._id} onClick={props.loadDeal}>
               <ListItem key={deal._id}>
                 <td><Button size="sm" className="load_Button mt-1 mb-1 mr-2" id={deal._id} onClick={props.loadDeal} >Load</Button></td>
                 <td className="load_Deal no-border">{deal.dealName} </td>
-                {/* <td>Dealer: {deal.dealer} </td>
-                <td>Vehicle: {deal.vehicle} </td>
-                <td>VIN/Stock #: {deal.stkOrVIN} </td>
-                <td>MakingthissuperlongtextcalledDescription: {deal.description} </td> */}
-                {/* <a href={{props.loadDeal} + deal._id}>
-                    Deal: {deal.dealName} <br />
-                    Dealer: {deal.dealer} <br />
-                    Vehicle: {deal.vehicle} <br /> 
-                    VIN/Stock #: {deal.stkOrVIN} <br />
-                    Description: {deal.description}
-                </a> */}
-                {/* <DeleteBtn /> */}
               </ListItem>
             ))}
           </List>
         ) : (
             <h5>No Results to Display</h5>
           )}
-        {/* <Form className="loadDeal_ModalForm">
-        <FormGroup className="mt-4">
-          <Label className="label_Text mb-0" for="deal_Name">Name this deal</Label>
-          <Input type="text" name="dealName" id="deal_Name" placeholder="Name" onChange={props.change} />
-          <Label className="label_Text mb-0" for="dealer">Which dealer</Label>
-          <Input type="text" name="dealer" id="dealer" placeholder="Dealership Name" onChange={props.change} />
-          <Label className="label_Text mb-0" for="vehicle">Vehicle Make/Model/Trim</Label>
-          <Input type="text" name="vehicle" id="vehicle" placeholder="Vehicle Make, Model, and Trim" onChange={props.change} />
-          <Label className="label_Text mb-0" for="stkOrVIN">Vehicle VIN or Stock Number</Label>
-          <Input type="text" name="stkOrVIN" id="stkOrVIN" placeholder="Add a name" onChange={props.change} />
-          <Label className="label_Text mb-0" for="description">Description</Label>
-          <Input type="textarea" name="description" id="description" placeholder="Add a name" onChange={props.change} />
-        </FormGroup>
-      </Form> */}
       </ModalBody>
       <ModalFooter className="loadDeal_MFooter text-center">
-        {/* <Button className="process_Button mt-0 mb-0" onClick={props.save} >Save</Button> */}
         <Button className="process_Button mt-0 mb-0" onClick={props.toggle} >Cancel</Button>
       </ModalFooter>
-
     </div>
   );
-}
+};
 
 export function List({ children }) {
   return (
@@ -95,8 +63,8 @@ export function List({ children }) {
       <tbody className="list-group">{children}</tbody>
     </table>
   );
-}
+};
 
 export function ListItem({ children }) {
   return <tr className="list-group-item">{children}</tr>;
-}
+};

@@ -1,9 +1,7 @@
 import React from "react";
 import './style.css';
-import { Button, Container, Row, Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, CustomInput } from 'reactstrap';
-// import { Button, Container, Row, Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, CustomInput } from 'reactstrap';
+import { Button, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 
-// This file exports the Input, TextArea, and FormBtn components
 
 export function LoginBox(props) {
   return (
@@ -28,7 +26,7 @@ export function LoginBox(props) {
       </Row>
     </div>
   );
-}
+};
 
 
 export function SignupBox(props) {
@@ -62,4 +60,4 @@ export function SignupBox(props) {
     </Row>
     </div>
   );
-}
+};

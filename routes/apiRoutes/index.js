@@ -3,8 +3,6 @@ const router = require("express").Router();
 const appController = require("../../controllers/appController");
 const loginController = require("../../controllers/loginController");
 
-
-
 //************************************************************************************/
 // Routes for the authentication engine
 router
@@ -19,15 +17,9 @@ router
   .route("/verify")
   .post(loginController.verify);
 
-router
-  .route("/logout")
-  .post(loginController.logout);
-
-
 
 //************************************************************************************/
-//
-
+// Routes for the application engine
 router
   .route("/saveDeal")
   .post(appController.saveDeal);
@@ -46,6 +38,5 @@ router
 router.use(function (req, res) {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
-
 
 module.exports = router;

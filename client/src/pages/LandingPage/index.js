@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import { Redirect } from "react-router-dom";
 import API from "../../utils/API";
 import './style.css';
-import { Button, Container, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Container } from 'reactstrap';
 import { LoginBox, SignupBox } from "../../components/AuthItems";
 import { TopFill, Banner } from "../../components/ScreenItems";
-import DealForm from '../DealForm';
-
-
-
-
-//    {/* <Grid columns={2} stackable textAlign='center'> */ }
 
 
 class LandingPage extends Component {
@@ -18,17 +11,15 @@ class LandingPage extends Component {
     isLoggedIn: false,
   };
 
-
   handleInputChange = event => {
     const value = event.target.value;
     const name = event.target.name;
     this.setState({
       [name]: value
     });
-    console.log("name = " + name);
-    console.log("value = " + value);
+//    console.log("name = " + name);
+//    console.log("value = " + value);
   };
-
 
   handleLogin = event => {
     event.preventDefault();
@@ -36,9 +27,8 @@ class LandingPage extends Component {
       email: this.state.email,
       password: this.state.password
     });
-    console.log("state = " + JSON.stringify(this.state));
+//    console.log("state = " + JSON.stringify(this.state));
   };
-
 
   handleSignup = event => {
     event.preventDefault();
@@ -48,52 +38,43 @@ class LandingPage extends Component {
       email: this.state.email,
       password: this.state.password
     });
-    console.log("state = " + JSON.stringify(this.state));
-    // this.validateUser({
-    //   email: this.state.email,
-    //   password: this.state.password
-    // });
-    // Navigate somewhere
+//    console.log("state = " + JSON.stringify(this.state));
   };
-
 
   validateUser = query => {
     API.getUser(query)
       .then(res => {
-        console.log("LOGIN: res = " + JSON.stringify(res));
+//        console.log("LOGIN: res = " + JSON.stringify(res));
         if (res.data.success) {
-          console.log("in success handle");
+//          console.log("in success handle");
           this.setState({ isLoggedIn: true, });
           this.setState({ loginMsg: res.data.message });
           window.sessionStorage.setItem("CFC_authkey", res.data.token);
           window.sessionStorage.setItem("auth-email", this.state.email);
           window.location.assign('/auth/deal');
-
         } else {
-          console.log("in failure handle");
+//          console.log("in failure handle");
           this.setState({ isLoggedIn: false });
           this.setState({ loginMsg: res.data.message });
           window.sessionStorage.setItem("CFC_authkey", "");
           window.sessionStorage.setItem("auth-email", this.state.email);
           window.location.assign('/');
         }
-        console.log("LOGIN: state = " + JSON.stringify(this.state));
+//        console.log("LOGIN: state = " + JSON.stringify(this.state));
       })
       .catch(err => console.log(err));
   };
 
-
   createUser = query => {
-    console.log("query = " + JSON.stringify(query));
+//    console.log("query = " + JSON.stringify(query));
     API.createUser(query)
       .then(res => {
-        console.log("LOGIN: res = " + JSON.stringify(res));
+//        console.log("LOGIN: res = " + JSON.stringify(res));
         if (res.data.success) {
-          //This is where you might send an email confirmation or auto-login the user
-          console.log("in success handle");
+//          console.log("in success handle");
           window.location.assign('/');
         } else {
-          console.log("in failure handle");
+//          console.log("in failure handle");
           window.location.assign('/signup');
         }
       })
@@ -121,7 +102,6 @@ class LandingPage extends Component {
               />
             </div>
           ) : (<div></div>)}
-
 
         </Container>
       </div >

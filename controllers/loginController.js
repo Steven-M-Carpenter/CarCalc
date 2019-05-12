@@ -19,13 +19,6 @@ module.exports = {
     } = body;
     let { email } = body;
 
-
-
-    // if (!firstName) {
-    //   return res.status(400).send({
-    //     success: false,
-    //     message: 'ERROR: You must specify a first name.'
-    //   });
     if (!firstName) {
       return res.send({
         success: false,
@@ -52,8 +45,6 @@ module.exports = {
     };
     email = email.toLowerCase();
 
-
-    // checkExist: (req, res) => {
     db.User.find({
       email: email
     }, (err, exists) => {
@@ -69,7 +60,6 @@ module.exports = {
         });
       };
     });
-
 
     const newUser = new User();
     newUser.email = email;
@@ -94,17 +84,16 @@ module.exports = {
   },
 
 
-
 //************************************************************/
 //* Process user Sign-in and create auth token for them
 //************************************************************/
   signIn: (req, res) => {
-    console.log("body = " + JSON.stringify(req.body));
+//    console.log("body = " + JSON.stringify(req.body));
     const { body } = req;
     const { password } = body;
     let { email } = body;
 
-    console.log("email = " + email + "  password = " + password);
+//    console.log("email = " + email + "  password = " + password);
 
     if (!email) {
       return res.send({
@@ -120,11 +109,10 @@ module.exports = {
     };
     email = email.toLowerCase();
 
-
     User.find({
       email: email
       }, (err, users) => {
-      console.log("Found user = " + users);
+//      console.log("Found user = " + users);
       if (err) {
         return res.send({
           success: false,
@@ -139,14 +127,13 @@ module.exports = {
       };
 
       const user = users[0];
-      console.log("password supplied = " + password);
+//      console.log("password supplied = " + password);
       if (!user.validPassword(password, user.password)) {
         return res.send({
           success: false,
           message: 'ERROR:  Invalid login.'
         });
       };
-
 
       const userSession = new UserSession();
       userSession.userId = user._id;
@@ -157,21 +144,14 @@ module.exports = {
             message: 'ERROR:  Server error'
           });
         };
-
-
         return res.send({
           success: true,
           message: "User login is complete",
           token: doc._id
         });
       });
-          // if (typeof window !== 'undefined') {
-            // } else {
-              // console.log("Unable to access local storage");
-            // };
     });
   },
-
 
 
 //************************************************************/
@@ -180,30 +160,24 @@ module.exports = {
   verify: (req, res) => {
     const { body } = req;
     const { token } = body;
-    // console.log(req);
-    // console.log("Token = " + token);
 
     UserSession.find({
       _id: token,
       isDeleted: false
     }, (err, sessions) => {
       if (err) {
-        // console.log("fail 1");
         return res.send({
           success: false,
           message: "ERROR:  Unable to obtain user token."
         });
       };
 
-
       if (sessions.length != 1) {
-        // console.log("Session length = " + sessions.length);
         return res.send({
           success: false,
           message: "ERROR:  Unable to verify session."
         });
       } else {
-        // console.log("success 3");
         return res.send({
           success: true,
           message: "Successfully verified session token."
@@ -211,38 +185,4 @@ module.exports = {
       };
     });
   },
-
-
-
-//************************************************************/
-//* Process logout and invalidate user token in DB 
-//************************************************************/
-  logout: (req, res) => {
-    const { query } = req;
-    const { token } = query;
-    console.log("Do I ever get called?");
-
-    UserSession.findOneAndUpdate({
-      _id: token,
-      isDeleted: false
-    }, {
-      $set:{isDeleted:true}
-    }, null, (err, sessions) => {
-      if (err) {
-        return res.send({
-          success: false,
-          message: "ERROR:  Unable to obtain user token."
-        });
-      };
-
-        return res.send({
-          success: true,
-          message: "Successfully logged out."
-        });
-      // };
-    });
-  },
-
-
-
 };

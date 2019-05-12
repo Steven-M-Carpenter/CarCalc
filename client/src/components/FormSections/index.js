@@ -1,70 +1,65 @@
 import React from "react";
 import './style.css';
-import { Button, Container, Row, Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, CustomInput } from 'reactstrap';
+import { Button, Row, Col, FormGroup, Label, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 import { InputRate, InputDollars, SwitchLeft, SwitchRight } from "../../components/DealInputs";
-// import { Button, Container, Row, Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, CustomInput } from 'reactstrap';
 
 
 export function LoanTerms(props) {
   return (
     <div className="test_color">
-    <Row className="pb-0">
-      <Col className="top_Box" xs={{ size: 10, offset: 1 }} sm={{ size: 10, offset: 1 }} md={{ size: 8, offset: 2 }} lg={{ size: 6, offset: 3 }}>
-        <Row>
-          <Col className="secTitle" xs="12" sm="12" md="12" lg="12">
-            <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Loan Details</h5>
-          </Col>
+      <Row className="pb-0">
+        <Col className="top_Box" xs={{ size: 10, offset: 1 }} sm={{ size: 10, offset: 1 }} md={{ size: 8, offset: 2 }} lg={{ size: 6, offset: 3 }}>
+          <Row>
+            <Col className="secTitle" xs="12" sm="12" md="12" lg="12">
+              <h5 className="account_Labels text-left pt-2 pb-0 mb-1">Loan Details</h5>
+            </Col>
 
-        </Row>
-        <Row>
-          <Col className="secTitle" xs="12" sm="12" md="12" lg="12">
-            <p className="instructions">Enter the financing rate and term of the loan in months.</p>
-          </Col>
-        </Row>
-        <Row>  
-          <Col className="secButton pl-2 pr-1" xs="12" sm="12" md={{size: 6, offset: 0 }} lg={{size: 6, offset: 0 }}>
-            <div className="text-center">
-              <Button size="sm" className="access_Button mt-1 mb-1" onClick={props.getDeals} >Load Saved Deal</Button>
-            </div>
-          </Col>
-          <Col className="secButton pr-1"  xs="12" sm="12" md={{size: 6, offset: 0 }} lg={{size: 6, offset: 0 }}>
-            <div className="text-center">
-              <Button size="sm" className="access_Button mt-1 mb-1" onClick={props.clearFields} >New Deal</Button>
-            </div>
-          </Col>
-          {/* <Col className="secButton pr-2"  xs="12" sm="6" md="6" lg="4">
-            <div className="text-center">
-              <Button size="sm" className="access_Button mt-1 mb-1" onClick={props.logoffCommand} >Logoff</Button>
-            </div>
-          </Col> */}
-        </Row>
+          </Row>
+          <Row>
+            <Col className="secTitle" xs="12" sm="12" md="12" lg="12">
+              <p className="instructions">Enter the financing rate and term of the loan in months.</p>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="secButton pl-2 pr-1" xs="12" sm="12" md={{ size: 6, offset: 0 }} lg={{ size: 6, offset: 0 }}>
+              <div className="text-center">
+                <Button size="sm" className="access_Button mt-1 mb-1" onClick={props.getDeals} >Load Saved Deal</Button>
+              </div>
+            </Col>
+            <Col className="secButton pr-1" xs="12" sm="12" md={{ size: 6, offset: 0 }} lg={{ size: 6, offset: 0 }}>
+              <div className="text-center">
+                <Button size="sm" className="access_Button mt-1 mb-1" onClick={props.clearFields} >New Deal</Button>
+              </div>
+            </Col>
+          </Row>
 
-        <Row className="loan_Section pb-1 ">
-          <Col className="left_Inputs" xs="12" sm="5" md="6" lg="6">
-            <InputRate
-              for="loan_rate"
-              label="Rate"
-              name="loanRate"
-              id="loan_rate"
-              step="1.00"
-              value={props.valRate}
-              onChange={props.change} />
-          </Col>
-          <Col className="right_Inputs" xs="12" sm="7" md="6" lg="6">
-            <FormGroup className="mt-1 mb-3">
-              <Label className="label_Text mb-0" for="loan_term">Term</Label>
-              <InputGroup size="sm">
-                <Input type="text" min="0" bsSize="sm" name="loanTerm" id="loan_term" step="1.00" className="form-control text-right" value={props.valTerm} onChange={props.change} />
-                <InputGroupAddon addonType="append">months</InputGroupAddon>
-              </InputGroup>
-            </FormGroup>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+          <Row className="loan_Section pb-1 ">
+            <Col className="left_Inputs" xs="12" sm="5" md="6" lg="6">
+              <InputRate
+                for="loan_rate"
+                label="Rate"
+                name="loanRate"
+                id="loan_rate"
+                step="1.00"
+                value={props.valRate}
+                onChange={props.change} />
+            </Col>
+            <Col className="right_Inputs" xs="12" sm="7" md="6" lg="6">
+              <FormGroup className="mt-1 mb-3">
+                <Label className="label_Text mb-0" for="loan_term">Term</Label>
+                <InputGroup size="sm">
+                  <Input type="text" min="0" bsSize="sm" name="loanTerm" id="loan_term" step="1.00" className="form-control text-right" value={props.valTerm} onChange={props.change} />
+                  <InputGroupAddon addonType="append">months</InputGroupAddon>
+                </InputGroup>
+              </FormGroup>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     </div>
   );
-}
+};
+
 
 export function Costs(props) {
   return (
@@ -74,7 +69,6 @@ export function Costs(props) {
         <p className="instructions mb-2">Enter the costs for the items.  Set the switch to on for items to be included in financing.</p>
 
         <Row className="cost_Section pb-0 ">
-          {/* <Col className="left_Switch" xs={{ size: 1 }}> */}
           <Col className="left_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchLeft
               name="incDealPrice"
@@ -82,7 +76,6 @@ export function Costs(props) {
               checked={props.incDealPrice}
               onChange={props.toggleChk} />
           </Col>
-          {/* <Col className="left_Inputs" xs={{ size: 5 }}> */}
           <Col className="left_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputDollars
               for="deal_price"
@@ -93,7 +86,6 @@ export function Costs(props) {
               value={props.valDealPrice}
               onChange={props.change} />
           </Col>
-          {/* <Col className="right_Inputs" xs={{ size: 5 }}> */}
           <Col className="right_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputRate
               for="state_TaxRate"
@@ -104,7 +96,6 @@ export function Costs(props) {
               value={props.valStateTax}
               onChange={props.change} />
           </Col>
-          {/* <Col className="right_Switch" xs={{ size: 1 }}> */}
           <Col className="right_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchRight
               name="incStateTax"
@@ -227,7 +218,7 @@ export function Costs(props) {
       </Col>
     </Row>
   );
-}
+};
 
 
 export function Offsets(props) {
@@ -285,5 +276,5 @@ export function Offsets(props) {
       </Col>
     </Row>
   );
-}
+};
 

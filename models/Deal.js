@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
 const DealsSchema = new Schema({
   email: { type: String },
   timestamp: { type: Date, default: Date.now() },
@@ -39,6 +38,5 @@ const DealsSchema = new Schema({
   financePayment: { type: String },
   financeResult: { type: String }
 });
-
 
 module.exports = mongoose.model("Deals", DealsSchema);

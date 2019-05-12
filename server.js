@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-// const routes = require("./routes");
 const apiRoutes = require("./routes/apiRoutes");
 const htmlRoutes = require("./routes/htmlRoutes");
 const PORT = process.env.PORT || 3001;
@@ -16,7 +15,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Define API routes here
-// app.use(routes);
 app.use("/api/", apiRoutes);
 app.use("/", htmlRoutes);
 
