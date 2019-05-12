@@ -62,9 +62,6 @@ class DealForm extends Component {
     // r = the interest rate per month, which equals the annual interest rate divided by 12
     // n = the total number of months
 
-    let testnum = 10000.12789;
-    let outString = numeral(testnum).format("$0,0.00");
-//    console.log("outString = " + outString);
     let AmountFinanced = 0;
     let TotalCredits = 0;
 //    console.log("State = " + JSON.stringify(this.state));
@@ -85,7 +82,7 @@ class DealForm extends Component {
     let rate = (parseFloat(this.state.loanRate) / 100);
 //    console.log("Rate = " + rate);
     let monthlyPayment = 0;
-    if (rate != 0) {
+    if (rate !== 0) {
       let rateMonthly = (parseFloat((rate) / 12));
 //      console.log("RateMonthly = " + rateMonthly);
 //      console.log("AmtFin = " + AmountFinanced);
@@ -113,10 +110,10 @@ class DealForm extends Component {
       let totalInterest = (totalPrice - AmountFinanced);
 //      console.log("totalInterest = " + totalInterest);
       this.setState({
-        financeAmount: AmountFinanced.toFixed(2),
-        financePrice: totalPrice.toFixed(2),
-        financeInterest: totalInterest.toFixed(2),
-        financePayment: monthlyPayment.toFixed(2),
+        financeAmount: numeral(AmountFinanced).format("$0,0.00"),
+        financePrice: numeral(totalPrice).format("$0,0.00"),
+        financeInterest: numeral(totalInterest).format("$0,0.00"),
+        financePayment: numeral(monthlyPayment).format("$0,0.00"),
         financeResult: true
       });
     }
@@ -142,17 +139,6 @@ class DealForm extends Component {
     this.setState({
       [name]: checked
     });
-  };
-
-
-  handleCalculate = event => {
-    event.preventDefault();
-    let payment = 0;
-    this.state.allValues ? (
-      payment = this.computePayment()
-    ) : (
-       console.log("The calculation resulted in an error.  Check your inputs and try again.")
-      );
   };
 
   handleSaveModalToggle = event => {
@@ -380,7 +366,7 @@ class DealForm extends Component {
             <Row className="pb-0">
               <Col className="bottom_Box text-center" xs={{ size: 10, offset: 1 }} sm={{ size: 10, offset: 1 }} md={{ size: 8, offset: 2 }} lg={{ size: 6, offset: 3 }}>
                 <div className="text-center">
-                  <Button className="access_Button mt-2 mb-3" onClick={this.handleCalculate} >Calculate</Button>
+                  <Button className="access_Button mt-2 mb-3" onClick={this.computePayment} >Calculate</Button>
                 </div>
               </Col>
             </Row>

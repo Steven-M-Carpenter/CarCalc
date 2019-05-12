@@ -12,11 +12,11 @@ export function LoginBox(props) {
           <Form className="access_Form">
             <FormGroup size="sm" className="mt-1 mb-2">
               <Label className="label_Text mb-0" for="login_email">Email</Label>
-              <Input type="email" bsSize="sm" name="email" id="login_email" placeholder="Enter your email address" onChange={props.change} />
+              <Input type="email" bsSize="sm" name="email" id="login_email" placeholder="Enter your email address" autoComplete="email" onChange={props.change} />
             </FormGroup>
             <FormGroup className="mt-1 mb-2">
               <Label className="label_Text mb-0" for="login_Password">Password</Label>
-              <Input type="password" size="sm" bsSize="sm" name="password" id="login_Password" placeholder="Enter your password" onChange={props.change} />
+              <Input type="password" bsSize="sm" name="password" id="login_Password" placeholder="Enter your password" autoComplete="current-password" onChange={props.change} />
             </FormGroup>
             <div className="text-center">
               <Button className="access_Button mt-3 mb-3" onClick={props.login} >Login</Button>
@@ -38,19 +38,19 @@ export function SignupBox(props) {
         <Form>
           <FormGroup className="mt-1 mb-2">
             <Label className="label_Text mb-0" for="login_fName">First name</Label>
-            <Input className="input_div" type="text" bsSize="sm" name="fName" id="login_fName" placeholder="Enter your first name" onChange={props.change} />
+            <Input className="input_div" type="text" bsSize="sm" name="fName" id="signup_fName" placeholder="Enter your first name" autoComplete="given-name" onChange={props.change} />
           </FormGroup>
           <FormGroup className="mt-1 mb-2">
             <Label className="label_Text mb-0" for="login_lName">Last name</Label>
-            <Input className="input_div" type="text" bsSize="sm" name="lName" id="login_lName" placeholder="Enter your last name" onChange={props.change} />
+            <Input className="input_div" type="text" bsSize="sm" name="lName" id="signup_lName" placeholder="Enter your last name" autoComplete="family-name" onChange={props.change} />
           </FormGroup>
           <FormGroup className="mt-1 mb-2">
             <Label className="label_Text mb-0" for="login_email">Email</Label>
-            <Input className="input_div" type="email" bsSize="sm" name="email" id="login_email" placeholder="Enter your email address" onChange={props.change} />
+            <Input className="input_div" type="email" bsSize="sm" name="email" id="signup_email" placeholder="Enter your email address" autoComplete="email" onChange={props.change} />
           </FormGroup>
           <FormGroup className="mt-1 mb-2">
             <Label className="label_Text mb-0" for="login_Password">Password</Label>
-            <Input className="input_div" type="password" bsSize="sm" name="password" id="login_Password" placeholder="Enter a password" onChange={props.change} />
+            <Input className="input_div" type="password" bsSize="sm" name="password" id="signup_Password" placeholder="Enter a password" autoComplete="new-password" onChange={props.change} />
           </FormGroup>
           <div className="text-center">
           <Button className="access_Button mt-3 mb-3" onClick={props.signup} >Signup</Button>

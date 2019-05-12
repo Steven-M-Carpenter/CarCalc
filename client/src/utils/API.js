@@ -12,7 +12,7 @@ export default {
   },  
 // Perform a check of the user's session key
   checkAuth: function(query) {
-    console.log("Query in API = " + JSON.stringify(query));
+//    console.log("Query in API = " + JSON.stringify(query));
     return axios.post("/api/verify", query);
   },
 // Perform a save of the selected deal
