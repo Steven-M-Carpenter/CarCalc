@@ -6,10 +6,8 @@ import { Container } from 'reactstrap';
 import { LoginBox, SignupBox } from "../../components/AuthItems";
 import { TopFill, Banner } from "../../components/ScreenItems";
 
-function initializeReactGA() {
-  ReactGA.initialize('UA-139996715-1');
-  ReactGA.pageview('/');
-}
+ReactGA.initialize('UA-139996715-1');
+ReactGA.pageview(window.location.pathname + window.location.search)
 class LandingPage extends Component {
   state = {
     isLoggedIn: false,

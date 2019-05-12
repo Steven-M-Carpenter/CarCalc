@@ -10,10 +10,11 @@ import DealForm from './pages/DealForm';
 
 library.add(faCar)
 
-function initializeReactGA() {
+// function initializeReactGA() {
   ReactGA.initialize('UA-139996715-1');
-  ReactGA.pageview('/');
-}
+  ReactGA.pageview(window.location.pathname + window.location.search)
+  // ReactGA.pageview('/');
+// }
 
 class App extends Component {
   state = {}
