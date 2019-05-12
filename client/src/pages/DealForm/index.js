@@ -10,7 +10,8 @@ import { TopFill, Banner } from "../../components/ScreenItems";
 import { SaveModal, LoadModal } from "../../components/Modals";
 
 ReactGA.initialize('UA-139996715-1');
-ReactGA.pageview(window.location.pathname + window.location.search)
+ReactGA.pageview('/');
+ReactGA.pageview('/auth/deal');
 class DealForm extends Component {
   state = {
     deals: [],

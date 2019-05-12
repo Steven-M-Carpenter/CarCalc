@@ -12,8 +12,9 @@ library.add(faCar)
 
 // function initializeReactGA() {
   ReactGA.initialize('UA-139996715-1');
-  ReactGA.pageview(window.location.pathname + window.location.search)
-  // ReactGA.pageview('/');
+  // ReactGA.pageview(window.location.pathname);
+  ReactGA.pageview('/');
+  ReactGA.pageview('/auth/deal');
 // }
 
 class App extends Component {

@@ -7,7 +7,8 @@ import { LoginBox, SignupBox } from "../../components/AuthItems";
 import { TopFill, Banner } from "../../components/ScreenItems";
 
 ReactGA.initialize('UA-139996715-1');
-ReactGA.pageview(window.location.pathname + window.location.search)
+ReactGA.pageview('/');
+ReactGA.pageview('/auth/deal');
 class LandingPage extends Component {
   state = {
     isLoggedIn: false,
