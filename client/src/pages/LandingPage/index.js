@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga';
 import React, { Component } from 'react';
 import API from "../../utils/API";
 import './style.css';
@@ -5,7 +6,10 @@ import { Container } from 'reactstrap';
 import { LoginBox, SignupBox } from "../../components/AuthItems";
 import { TopFill, Banner } from "../../components/ScreenItems";
 
-
+function initializeReactGA() {
+  ReactGA.initialize('UA-139996715-1');
+  ReactGA.pageview('/');
+}
 class LandingPage extends Component {
   state = {
     isLoggedIn: false,
@@ -27,6 +31,10 @@ class LandingPage extends Component {
       email: this.state.email,
       password: this.state.password
     });
+    ReactGA.event({
+      category: 'Auth',
+      action: 'Login ' + this.state.email
+    });
 //    console.log("state = " + JSON.stringify(this.state));
   };
 
@@ -38,6 +46,10 @@ class LandingPage extends Component {
       email: this.state.email,
       password: this.state.password
     });
+    ReactGA.event({
+      category: 'Auth',
+      action: 'Signup ' + this.state.email
+    });
 //    console.log("state = " + JSON.stringify(this.state));
   };
 
@@ -47,12 +59,20 @@ class LandingPage extends Component {
 //        console.log("LOGIN: res = " + JSON.stringify(res));
         if (res.data.success) {
 //          console.log("in success handle");
+          ReactGA.event({
+            category: 'Auth',
+            action: 'User Validated ' + this.state.email
+          });
           this.setState({ isLoggedIn: true, });
           this.setState({ loginMsg: res.data.message });
           window.sessionStorage.setItem("CFC_authkey", res.data.token);
           window.sessionStorage.setItem("auth-email", this.state.email);
           window.location.assign('/auth/deal');
         } else {
+          ReactGA.event({
+            category: 'Auth',
+            action: 'User Failed Validation ' + this.state.email
+          });
 //          console.log("in failure handle");
           this.setState({ isLoggedIn: false });
           this.setState({ loginMsg: res.data.message });

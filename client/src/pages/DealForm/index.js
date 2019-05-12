@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga';
 import React, { Component } from 'react';
 import API from "../../utils/API";
 import './style.css';
@@ -8,7 +9,10 @@ import { ResultsDisplay } from '../../components/DealResults';
 import { TopFill, Banner } from "../../components/ScreenItems";
 import { SaveModal, LoadModal } from "../../components/Modals";
 
-
+function initializeReactGA() {
+  ReactGA.initialize('UA-139996715-1');
+  ReactGA.pageview('/');
+}
 class DealForm extends Component {
   state = {
     deals: [],
@@ -61,6 +65,10 @@ class DealForm extends Component {
     // P = the principal
     // r = the interest rate per month, which equals the annual interest rate divided by 12
     // n = the total number of months
+    ReactGA.event({
+      category: 'Deal',
+      action: 'Calculated Payment'
+    });
 
     let AmountFinanced = 0;
     let TotalCredits = 0;
@@ -136,18 +144,30 @@ class DealForm extends Component {
 //**********************************************************************/
   handleCheckBoxChange = (event) => {
     const { name, checked } = event.target;
+    ReactGA.event({
+      category: 'Deal Input',
+      action: 'Changed ' + [name] + 'to ' + checked
+    });
     this.setState({
       [name]: checked
     });
   };
 
   handleSaveModalToggle = event => {
+    ReactGA.event({
+      category: 'Deal',
+      action: 'Save Modal Launched'
+    });
     this.setState({
       saveDealModal: !this.state.saveDealModal
     });
   };
 
   handleLoadModalToggle = event => {
+    ReactGA.event({
+      category: 'Deal',
+      action: 'Load Modal Launched'
+    });
     this.setState({
       loadDealModal: !this.state.loadDealModal
     });
@@ -155,6 +175,11 @@ class DealForm extends Component {
 
   handleClearFields = event => {
     event.preventDefault();
+    ReactGA.event({
+      category: 'Deal',
+      action: 'Clear Fields'
+    });
+
 //    console.log("Clearing Fields");
     this.setState({
       loanRate: 5.9,
@@ -205,6 +230,10 @@ class DealForm extends Component {
   handleLoadDeal = event => {
     event.preventDefault();
 //    console.log("Load clicked");
+    ReactGA.event({
+      category: 'Deal',
+      action: 'Selected Load Deal'
+    });
     this.loadDeal(event.target.id);
   };
 
@@ -217,6 +246,10 @@ class DealForm extends Component {
   handleNewDeal = event => {
     event.preventDefault();
 //    console.log("Save clicked");
+    ReactGA.event({
+      category: 'Deal',
+      action: 'New Deal'
+    });
     this.saveDeal({
       loanRate: this.state.loanRate,
       loanTerm: this.state.loanTerm,
