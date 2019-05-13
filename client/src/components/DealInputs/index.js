@@ -8,7 +8,7 @@ export function InputRate(props) {
     <FormGroup className="mt-0 mb-0">
       <Label className="label_Text mb-0" for={props.for}>{props.label}</Label>
       <InputGroup size="sm">
-        <Input type="number" min="0" bsSize="sm" name={props.name} id={props.id} step={props.step} className="form-control text-right" value={props.value} onChange={props.onChange} />
+        <Input type="number" min="0" bsSize="sm" name={props.name} id={props.id} step={props.step} className="form-control text-right" value={props.value} onChange={props.onChange} onBlur={props.onBlur}/>
         <InputGroupAddon addonType="append">%</InputGroupAddon>
       </InputGroup>
     </FormGroup>
@@ -22,7 +22,7 @@ export function InputDollars(props) {
       <Label className="label_Text mb-0" for={props.for}>{props.label}</Label>
       <InputGroup size="sm">
         <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-        <Input type="number" min="0" bsSize="sm" name={props.name} id={props.id} step={props.step} className="form-control text-right" value={props.value} onChange={props.onChange} />
+        <Input type="number" min="0" bsSize="sm" name={props.name} id={props.id} step={props.step} className="form-control text-right" value={props.value} onChange={props.onChange} onBlur={props.onBlur}/>
         {/* <InputGroupAddon addonType="append">.00</InputGroupAddon> */}
       </InputGroup>
     </FormGroup>

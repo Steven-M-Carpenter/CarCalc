@@ -32,7 +32,7 @@ class LandingPage extends Component {
     });
     ReactGA.event({
       category: 'Auth',
-      action: 'Login ' + this.state.email
+      action: 'Login Requested'
     });
 //    console.log("state = " + JSON.stringify(this.state));
   };
@@ -47,7 +47,7 @@ class LandingPage extends Component {
     });
     ReactGA.event({
       category: 'Auth',
-      action: 'Signup ' + this.state.email
+      action: 'Signup Requested'
     });
 //    console.log("state = " + JSON.stringify(this.state));
   };
@@ -60,7 +60,7 @@ class LandingPage extends Component {
 //          console.log("in success handle");
           ReactGA.event({
             category: 'Auth',
-            action: 'User Validated ' + this.state.email
+            action: 'User Validated'
           });
           this.setState({ isLoggedIn: true, });
           this.setState({ loginMsg: res.data.message });
@@ -70,7 +70,7 @@ class LandingPage extends Component {
         } else {
           ReactGA.event({
             category: 'Auth',
-            action: 'User Failed Validation ' + this.state.email
+            action: 'User Failed Validation'
           });
 //          console.log("in failure handle");
           this.setState({ isLoggedIn: false });

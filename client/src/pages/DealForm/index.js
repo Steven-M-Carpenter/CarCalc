@@ -127,9 +127,22 @@ class DealForm extends Component {
     return monthlyPayment.toFixed(2);
   };
 
+  handleBlur = event => {
+    const value = event.target.value;
+    const name = event.target.name;
+    ReactGA.event({
+      category: 'Deal Input',
+      action: 'Set ' + [name] + ' to ' + value
+    });
+  };  
+
   handleInputChange = event => {
     const value = event.target.value;
     const name = event.target.name;
+    // ReactGA.event({
+    //   category: 'Deal Input',
+    //   action: 'Set ' + [name] + ' to ' + value
+    // });
     this.setState({
       [name]: value
     });
@@ -145,7 +158,7 @@ class DealForm extends Component {
     const { name, checked } = event.target;
     ReactGA.event({
       category: 'Deal Input',
-      action: 'Changed ' + [name] + 'to ' + checked
+      action: 'Changed ' + [name] + ' to ' + checked
     });
     this.setState({
       [name]: checked
@@ -157,6 +170,7 @@ class DealForm extends Component {
       category: 'Deal',
       action: 'Save Modal Launched'
     });
+    ReactGA.modalview('/auth/deal/save-modal');
     this.setState({
       saveDealModal: !this.state.saveDealModal
     });
@@ -167,6 +181,7 @@ class DealForm extends Component {
       category: 'Deal',
       action: 'Load Modal Launched'
     });
+    ReactGA.modalview('/auth/deal/load-modal');
     this.setState({
       loadDealModal: !this.state.loadDealModal
     });
@@ -176,7 +191,7 @@ class DealForm extends Component {
     event.preventDefault();
     ReactGA.event({
       category: 'Deal',
-      action: 'Clear Fields'
+      action: 'Cleared Fields'
     });
 
 //    console.log("Clearing Fields");
@@ -231,7 +246,7 @@ class DealForm extends Component {
 //    console.log("Load clicked");
     ReactGA.event({
       category: 'Deal',
-      action: 'Selected Load Deal'
+      action: 'Selected Deal to Load'
     });
     this.loadDeal(event.target.id);
   };
@@ -247,7 +262,7 @@ class DealForm extends Component {
 //    console.log("Save clicked");
     ReactGA.event({
       category: 'Deal',
-      action: 'New Deal'
+      action: 'Record Saved'
     });
     this.saveDeal({
       loanRate: this.state.loanRate,
@@ -361,6 +376,7 @@ class DealForm extends Component {
               getDeals={this.handleGetMyDeals}
               clearFields={this.handleClearFields}
               logoffCommand={this.handleLogoff}
+              blur={this.handleBlur}
             />
 
             {/***********************************************************************************************************/}
@@ -383,6 +399,7 @@ class DealForm extends Component {
               incWarranty={this.state.incWarranty}
               toggleChk={this.handleCheckBoxChange}
               change={this.handleInputChange}
+              blur={this.handleBlur}
             />
 
             {/***********************************************************************************************************/}
@@ -392,6 +409,7 @@ class DealForm extends Component {
               valRebates={this.state.rebates}
               valDiscounts={this.state.discounts}
               change={this.handleInputChange}
+              blur={this.handleBlur}
             />
 
             {/***********************************************************************************************************/}

@@ -42,13 +42,14 @@ export function LoanTerms(props) {
                 id="loan_rate"
                 step="1.00"
                 value={props.valRate}
-                onChange={props.change} />
+                onChange={props.change}
+                onBlur={props.blur} />
             </Col>
             <Col className="right_Inputs" xs="12" sm="7" md="6" lg="6">
               <FormGroup className="mt-1 mb-3">
                 <Label className="label_Text mb-0" for="loan_term">Term</Label>
                 <InputGroup size="sm">
-                  <Input type="text" min="0" bsSize="sm" name="loanTerm" id="loan_term" step="1.00" className="form-control text-right" value={props.valTerm} onChange={props.change} />
+                  <Input type="text" min="0" bsSize="sm" name="loanTerm" id="loan_term" step="1.00" className="form-control text-right" value={props.valTerm} onChange={props.change} onBlur={props.blur} />
                   <InputGroupAddon addonType="append">months</InputGroupAddon>
                 </InputGroup>
               </FormGroup>
@@ -84,7 +85,8 @@ export function Costs(props) {
               id="deal_price"
               step="1.00"
               value={props.valDealPrice}
-              onChange={props.change} />
+              onChange={props.change} 
+              onBlur={props.blur} />
           </Col>
           <Col className="right_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputRate
@@ -94,7 +96,8 @@ export function Costs(props) {
               id="state_TaxRate"
               step="1.00"
               value={props.valStateTax}
-              onChange={props.change} />
+              onChange={props.change} 
+              onBlur={props.blur} />
           </Col>
           <Col className="right_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchRight
@@ -121,7 +124,8 @@ export function Costs(props) {
               id="additional_charges"
               step="1.00"
               value={props.valAddCharges}
-              onChange={props.change} />
+              onChange={props.change} 
+              onBlur={props.blur} />
           </Col>
           <Col className="right_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputRate
@@ -131,7 +135,8 @@ export function Costs(props) {
               id="local_TaxRate"
               step="1.00"
               value={props.valLocalTax}
-              onChange={props.change} />
+              onChange={props.change} 
+              onBlur={props.blur} />
           </Col>
           <Col className="right_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchRight
@@ -158,7 +163,8 @@ export function Costs(props) {
               id="dealer_processing"
               step="1.00"
               value={props.valDealerPro}
-              onChange={props.change} />
+              onChange={props.change} 
+              onBlur={props.blur} />
           </Col>
           <Col className="right_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputDollars
@@ -168,7 +174,8 @@ export function Costs(props) {
               id="title_fee"
               step="1.00"
               value={props.valTitleFee}
-              onChange={props.change} />
+              onChange={props.change} 
+              onBlur={props.blur} />
           </Col>
           <Col className="right_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchRight
@@ -195,7 +202,8 @@ export function Costs(props) {
               id="warranty_cost"
               step="1.00"
               value={props.valWarranty}
-              onChange={props.change} />
+              onChange={props.change} 
+              onBlur={props.blur} />
           </Col>
           <Col className="right_Inputs" xs="8" sm="8" md="4" lg="5">
             <InputDollars
@@ -205,7 +213,8 @@ export function Costs(props) {
               id="tag_fee"
               step="1.00"
               value={props.valTagFee}
-              onChange={props.change} />
+              onChange={props.change} 
+              onBlur={props.blur} />
           </Col>
           <Col className="right_Switch text-center" xs="4" sm="4" md="2" lg="1">
             <SwitchRight
@@ -237,7 +246,8 @@ export function Offsets(props) {
               id="trade_in"
               step="1.00"
               value={props.valTradeIn}
-              onChange={props.change} />
+              onChange={props.change} 
+              onBlur={props.blur} />
           </Col>
           <Col className="right_Inputs" xs="6" sm="6" md="6" lg="6">
             <InputDollars
@@ -247,7 +257,8 @@ export function Offsets(props) {
               id="down_payment"
               step="1.00"
               value={props.valDownPymt}
-              onChange={props.change} />
+              onChange={props.change} 
+              onBlur={props.blur} />
           </Col>
         </Row>
 
@@ -260,7 +271,8 @@ export function Offsets(props) {
               id="rebates"
               step="1.00"
               value={props.valRebates}
-              onChange={props.change} />
+              onChange={props.change} 
+              onBlur={props.blur} />
           </Col>
           <Col className="right_Inputs" xs="6" sm="6" md="6" lg="6">
             <InputDollars
@@ -270,7 +282,8 @@ export function Offsets(props) {
               id="discounts"
               step="1.00"
               value={props.valDiscounts}
-              onChange={props.change} />
+              onChange={props.change} 
+              onBlur={props.blur} />
           </Col>
         </Row>
       </Col>
