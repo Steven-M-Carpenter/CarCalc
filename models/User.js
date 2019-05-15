@@ -15,7 +15,7 @@ UserSchema.methods.generateHash = (password) => {
 };
 
 UserSchema.methods.validPassword = (password, storedPW) => {
-  console.log("pw tpw = " + password + " " + storedPW);
+//  console.log("pw tpw = " + password + " " + storedPW);
   return bcrypt.compareSync(password, storedPW);
 };
 

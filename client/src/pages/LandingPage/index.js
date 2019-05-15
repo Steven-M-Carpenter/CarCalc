@@ -91,7 +91,15 @@ class LandingPage extends Component {
 //        console.log("LOGIN: res = " + JSON.stringify(res));
         if (res.data.success) {
 //          console.log("in success handle");
-          window.location.assign('/');
+//          window.location.assign('/auth/deal');
+          this.validateUser({
+            email: this.state.email,
+            password: this.state.password
+          });
+          ReactGA.event({
+            category: 'Auth',
+            action: 'Register Login Requested'
+          });        
         } else {
 //          console.log("in failure handle");
           window.location.assign('/signup');
