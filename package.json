@@ -27,6 +27,6 @@
     "if-env": "^1.0.4",
     "mongoose": "^5.4.16",
     "numeral": "^2.0.6",
-    "react-numeral": "^1.0.1"
+    "react-numeral": "^1.1.1"
   }
 }
